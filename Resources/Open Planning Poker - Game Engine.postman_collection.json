@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "1c709e75-a528-4134-9686-bdecf5a8f21b",
+		"name": "Open Planning Poker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4044595"
+	},
+	"item": [
+		{
+			"name": "Game Engine",
+			"item": [
+				{
+					"name": "Info",
+					"item": [
+						{
+							"name": "Returns info about the service",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{gameEngineUrl}}/api/Info",
+									"host": [
+										"{{gameEngineUrl}}"
+									],
+									"path": [
+										"api",
+										"Info"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/Info",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Info"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"version\": \"<string>\",\n  \"author\": \"<string>\",\n  \"contact\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,10 @@
+global using OpenPlanningPoker.GameEngine.Infrastructure;
+global using OpenPlanningPoker.GameEngine.Api.Tests.Infrastructure;
+global using Microsoft.AspNetCore.Hosting;
+global using Microsoft.AspNetCore.Mvc.Testing;
+global using Microsoft.AspNetCore.TestHost;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.DependencyInjection;
+global using Testcontainers.PostgreSql;
+global using Xunit;
+global using MediatR;
