@@ -33,6 +33,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenPlanningPoker.GameEngin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenPlanningPoker.GameEngine.Domain.UnitTests", "test\OpenPlanningPoker.GameEngine.Domain.UnitTests\OpenPlanningPoker.GameEngine.Domain.UnitTests.csproj", "{4A87B29B-1444-4B61-8FA4-4A235509D70F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenPlanningPoker.GameEngine.Worker", "src\OpenPlanningPoker.GameEngine.Worker\OpenPlanningPoker.GameEngine.Worker.csproj", "{C74C58C5-C102-4FD4-ABAB-ADD917C258AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenPlanningPoker.GameEngine.gRPC", "src\OpenPlanningPoker.GameEngine.gRPC\OpenPlanningPoker.GameEngine.gRPC.csproj", "{95B1322A-FFDB-4495-A513-44086723CF60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +79,14 @@ Global
 		{4A87B29B-1444-4B61-8FA4-4A235509D70F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A87B29B-1444-4B61-8FA4-4A235509D70F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A87B29B-1444-4B61-8FA4-4A235509D70F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C74C58C5-C102-4FD4-ABAB-ADD917C258AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C74C58C5-C102-4FD4-ABAB-ADD917C258AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C74C58C5-C102-4FD4-ABAB-ADD917C258AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C74C58C5-C102-4FD4-ABAB-ADD917C258AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95B1322A-FFDB-4495-A513-44086723CF60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95B1322A-FFDB-4495-A513-44086723CF60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95B1322A-FFDB-4495-A513-44086723CF60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95B1322A-FFDB-4495-A513-44086723CF60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +101,8 @@ Global
 		{61A80FCE-574F-49C3-9F20-1AC47843A745} = {E198BDAA-7800-418B-B45A-B232F0345F83}
 		{204D5F73-2BDD-47BE-96F1-9DFB17223462} = {E198BDAA-7800-418B-B45A-B232F0345F83}
 		{4A87B29B-1444-4B61-8FA4-4A235509D70F} = {E198BDAA-7800-418B-B45A-B232F0345F83}
+		{C74C58C5-C102-4FD4-ABAB-ADD917C258AF} = {C3672BE8-FA33-40F5-ACF9-DA5CA1B8C7C4}
+		{95B1322A-FFDB-4495-A513-44086723CF60} = {C3672BE8-FA33-40F5-ACF9-DA5CA1B8C7C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86AE6888-9D89-4CB7-918F-72F30024A42E}
