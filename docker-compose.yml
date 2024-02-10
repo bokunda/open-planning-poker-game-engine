@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.6'
 
 services:
   OpenPlanningPoker.GameEngine.api:
@@ -7,8 +7,20 @@ services:
       context: .
       dockerfile: src/OpenPlanningPoker.GameEngine.Api/Dockerfile
 
+  OpenPlanningPoker.GameEngine.worker:
+    image: ${DOCKER_REGISTRY-}openplanningpokergameengineworker
+    build:
+      context: .
+      dockerfile: src/OpenPlanningPoker.GameEngine.Worker/Dockerfile
+
+  OpenPlanningPoker.GameEngine.gRPC:
+    image: ${DOCKER_REGISTRY-}openplanningpokergameenginegrpc
+    build:
+      context: .
+      dockerfile: src/OpenPlanningPoker.GameEngine.gRPC/Dockerfile
+
   open-planning-poker-game-engine-db:
-    image: postgres:latest
+    image: postgres:15.5
     container_name: OpenPlanningPoker.GameEngine.Db
     environment:
       - POSTGRES_DB=open-planning-poker-game-engine
