@@ -13,7 +13,7 @@ public sealed class Vote : Entity<Guid>
     public Guid TicketId { get; set; }
     public int Value { get; set; }
 
-    public Ticket Ticket => null!;
+    public Ticket Ticket { get; set; } = null!;
 
     public static Vote Create(Guid playerId, Guid ticketId, int value)
     {

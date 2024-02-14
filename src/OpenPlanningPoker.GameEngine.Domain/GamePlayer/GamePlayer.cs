@@ -11,7 +11,7 @@ public sealed class GamePlayer
     public Guid GameId { get; set; }
     public Guid PlayerId { get; set; }
 
-    public Game Game => null!;
+    public Game Game { get; set; } = null!;
 
     public static GamePlayer Create(Guid gameId, Guid playerId) => new (gameId, playerId);
 }

@@ -7,7 +7,8 @@ public sealed class OpenPlanningPokerGameEngineDbContext : DbContext, IUnitOfWor
 
     public OpenPlanningPokerGameEngineDbContext(
         DbContextOptions options,
-        IDateTimeProvider dateTimeProvider, IPublisher publisher)
+        IDateTimeProvider dateTimeProvider, 
+        IPublisher publisher)
         : base(options)
     {
         _dateTimeProvider = dateTimeProvider;

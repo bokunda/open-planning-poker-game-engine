@@ -8,7 +8,7 @@ public sealed class Ticket : Entity<Guid>
 
     public ICollection<Vote>? Votes;
 
-    public Game Game => null!;
+    public Game Game { get; set; } = null!;
 
     internal Ticket(Guid gameId, string name, string description)
     {

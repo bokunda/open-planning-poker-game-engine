@@ -15,7 +15,7 @@ public sealed class GameSettings : Entity<Guid>
     public int VotingTime { get; set; }
     public bool IsBreakAllowed { get; set; }
 
-    public Game Game => null!;
+    public Game Game { get; set; } = null!;
 
     public static GameSettings Create(Guid gameId, int votingTime, bool isBreakAllowed)
     {

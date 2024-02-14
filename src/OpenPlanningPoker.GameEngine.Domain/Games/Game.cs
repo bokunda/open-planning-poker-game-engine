@@ -11,9 +11,9 @@ public sealed class Game : Entity<Guid>
     public string Name { get; }
     public string Description { get; }
 
-    public GameSettings.GameSettings GameSettings => null!;
-    public ICollection<GamePlayer.GamePlayer>? GamePlayers;
-    public ICollection<Ticket>? Tickets;
+    public GameSettings.GameSettings GameSettings { get; set; } = null!;
+    public ICollection<GamePlayer.GamePlayer>? GamePlayers { get; set; }
+    public ICollection<Ticket>? Tickets { get; set; }
 
     public static Game Create(string name, string description)
     {
