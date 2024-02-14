@@ -1,6 +1,6 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Domain.Abstractions;
 
-public abstract class Entity<TEntityId> : IEntity, IEntityHasCreatedUpdated
+public abstract class Entity<TEntityId> : IEntity, IEntityHasCreated
 {
     private readonly List<IDomainEvent> _domainEvents = new();
 
@@ -15,7 +15,6 @@ public abstract class Entity<TEntityId> : IEntity, IEntityHasCreatedUpdated
 
     public TEntityId Id { get; init; }
     public DateTimeOffset CreatedOn { get; private set; }
-    public DateTimeOffset UpdatedOn { get; private set; }
     public bool IsDeleted { get; private set; }
 
     public void SetIsDeleted(bool isDeleted = true) => IsDeleted = isDeleted;
@@ -24,5 +23,4 @@ public abstract class Entity<TEntityId> : IEntity, IEntityHasCreatedUpdated
     protected void RaiseDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
 
     public void SetCreated(DateTimeOffset createdOn) => CreatedOn = createdOn;
-    public void SetUpdated(DateTimeOffset updatedOn) => UpdatedOn = updatedOn;
 }

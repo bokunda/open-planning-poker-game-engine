@@ -1,7 +1,6 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Domain.Abstractions;
 
-public interface IEntityHasCreatedUpdated
+public interface IEntityHasCreated
 {
     void SetCreated(DateTimeOffset createdOn);
-    void SetUpdated(DateTimeOffset updatedOn);
 }
