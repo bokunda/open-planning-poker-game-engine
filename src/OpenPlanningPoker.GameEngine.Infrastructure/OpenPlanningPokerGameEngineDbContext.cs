@@ -50,15 +50,13 @@ public sealed class OpenPlanningPokerGameEngineDbContext : DbContext, IUnitOfWor
         var utcNow = _dateTimeProvider.UtcNow;
         var entries = ChangeTracker
             .Entries()
-            .Where(e => e.Entity is IEntityHasCreatedUpdated && e.State is EntityState.Added or EntityState.Modified);
+            .Where(e => e.Entity is IEntityHasCreated && e.State is EntityState.Added or EntityState.Modified);
 
         foreach (var entityEntry in entries)
         {
-            ((IEntityHasCreatedUpdated)entityEntry.Entity).SetUpdated(utcNow);
-
             if (entityEntry.State == EntityState.Added)
             {
-                ((IEntityHasCreatedUpdated)entityEntry.Entity).SetCreated(utcNow);
+                ((IEntityHasCreated)entityEntry.Entity).SetCreated(utcNow);
             }
         }
     }

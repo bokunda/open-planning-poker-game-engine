@@ -46,7 +46,8 @@ Table Audit {
   Name nvarchar(255) [not null]
   Description nvarchar(4080)
   Type smallint [not null]
-  ObjectId Guid
+  ObjectType smallint [not null]
+  ObjectId Guid [not null]
 }
 
 
