@@ -18,8 +18,21 @@ public class GamesController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public async Task<GetGame.Response> Get(Guid id)
+    public async Task<GetGameResponse> Get(Guid id)
     {
-        return await _sender.Send(new GetGame.Query(id));
+        return await _sender.Send(new GetGameQuery(id));
+    }
+
+    /// <summary>
+    /// Creates a game
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<CreateGameResponse> Post([FromBody] CreateGameCommand createGameCommand)
+    {
+        return await _sender.Send(createGameCommand);
     }
 }
