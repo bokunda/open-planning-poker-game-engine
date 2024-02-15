@@ -1,6 +1,4 @@
-﻿using OpenPlanningPoker.GameEngine.Application.Info.GetInfo;
-
-namespace OpenPlanningPoker.GameEngine.Api.Controllers.Info;
+﻿namespace OpenPlanningPoker.GameEngine.Api.Controllers.Info;
 
 [Route("api/[controller]")]
 [ApiController]
