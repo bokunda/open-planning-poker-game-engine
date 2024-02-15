@@ -1,6 +1,4 @@
-﻿using OpenPlanningPoker.GameEngine.Domain.Abstractions;
-
-namespace OpenPlanningPoker.GameEngine.Application.Features.Games;
+﻿namespace OpenPlanningPoker.GameEngine.Application.Features.Games;
 
 public sealed record CreateGameResponse(Guid Id, string Name, string Description);
 
