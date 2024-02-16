@@ -1,6 +1,4 @@
-﻿using OpenPlanningPoker.GameEngine.Application.Features.Games;
-
-namespace OpenPlanningPoker.GameEngine.Api.Controllers.Games;
+﻿namespace OpenPlanningPoker.GameEngine.Api.Controllers.Games;
 
 [Route("api/[controller]")]
 [ApiController]

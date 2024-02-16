@@ -27,6 +27,8 @@ public class Repository<TEntity, TEntityId> : IRepository<TEntity, TEntityId> wh
 
     public void Add(TEntity entity) => DbContext.Set<TEntity>().Add(entity);
 
+    public void AddRange(IEnumerable<TEntity> entities) => DbContext.Set<TEntity>().AddRange(entities);
+
     public void Update(TEntity entity)
     {
         DbContext.Set<TEntity>().Attach(entity);
