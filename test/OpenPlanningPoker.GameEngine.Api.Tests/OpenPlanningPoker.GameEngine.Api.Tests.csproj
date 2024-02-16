@@ -32,8 +32,4 @@
     <ProjectReference Include="..\..\src\OpenPlanningPoker.GameEngine.Infrastructure\OpenPlanningPoker.GameEngine.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\" />
-  </ItemGroup>
-
 </Project>
