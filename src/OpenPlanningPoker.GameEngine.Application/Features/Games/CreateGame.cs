@@ -43,6 +43,7 @@ public static class CreateGame
 
         public async Task<CreateGameResponse> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
+            // Create a game
             var game = Game.Create(request.Name, request.Description);
             _gameRepository.Add(game);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
