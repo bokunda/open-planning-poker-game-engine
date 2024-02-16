@@ -13,5 +13,7 @@ global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Diagnostics.HealthChecks;
+global using OpenPlanningPoker.GameEngine.Application.Features.Games;
+global using OpenPlanningPoker.GameEngine.Application.Features.Tickets;
 global using OpenPlanningPoker.GameEngine.Application.Info.GetInfo;
 global using Serilog;

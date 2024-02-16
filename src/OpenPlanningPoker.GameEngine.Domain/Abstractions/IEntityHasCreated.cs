@@ -2,5 +2,5 @@
 
 public interface IEntityHasCreated
 {
-    void SetCreated(DateTimeOffset createdOn);
+    void SetCreated(DateTimeOffset createdOn, Guid createdBy);
 }

@@ -3,14 +3,17 @@
 public sealed class OpenPlanningPokerGameEngineDbContext : DbContext, IUnitOfWork
 {
     private readonly IPublisher _publisher;
+    private readonly ICurrentUserProvider _currentUserProvider;
     private readonly IDateTimeProvider _dateTimeProvider;
 
     public OpenPlanningPokerGameEngineDbContext(
         DbContextOptions options,
+        ICurrentUserProvider currentUserProvider,
         IDateTimeProvider dateTimeProvider, 
         IPublisher publisher)
         : base(options)
     {
+        _currentUserProvider = currentUserProvider;
         _dateTimeProvider = dateTimeProvider;
         _publisher = publisher;
     }
@@ -57,7 +60,7 @@ public sealed class OpenPlanningPokerGameEngineDbContext : DbContext, IUnitOfWor
         {
             if (entityEntry.State == EntityState.Added)
             {
-                ((IEntityHasCreated)entityEntry.Entity).SetCreated(utcNow);
+                ((IEntityHasCreated)entityEntry.Entity).SetCreated(utcNow, _currentUserProvider.CustomerId);
             }
         }
     }
