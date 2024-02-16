@@ -21,6 +21,5 @@ public abstract class Entity<TEntityId> : IEntity, IEntityHasCreated
     public IReadOnlyList<IDomainEvent> GetDomainEvents() => _domainEvents.ToList();
     public void ClearDomainEvents() => _domainEvents.Clear();
     protected void RaiseDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
-
     public void SetCreated(DateTimeOffset createdOn) => CreatedOn = createdOn;
 }
