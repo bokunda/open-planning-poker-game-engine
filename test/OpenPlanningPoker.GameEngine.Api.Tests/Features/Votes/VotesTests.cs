@@ -1,6 +1,5 @@
 ﻿using OpenPlanningPoker.GameEngine.Application.Features.Votes;
 using OpenPlanningPoker.GameEngine.Domain.Votes;
-using Org.BouncyCastle.Utilities;
 
 namespace OpenPlanningPoker.GameEngine.Api.Tests.Features.Votes;
 

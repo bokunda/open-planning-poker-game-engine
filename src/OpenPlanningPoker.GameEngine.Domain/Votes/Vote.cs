@@ -27,6 +27,6 @@ public sealed class Vote : Entity<Guid>
         Value = value;
 
         SetCreated(DateTimeOffset.UtcNow, CreatedBy);
-        RaiseDomainEvent(new CreateVoteDomainEvent(Id));
+        RaiseDomainEvent(new UpdateVoteDomainEvent(Id));
     }
 }
