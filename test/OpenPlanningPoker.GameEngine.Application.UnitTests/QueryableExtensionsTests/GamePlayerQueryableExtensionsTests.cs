@@ -1,6 +1,4 @@
-﻿using OpenPlanningPoker.GameEngine.Domain.GamePlayer;
-
-namespace OpenPlanningPoker.GameEngine.Application.UnitTests.QueryableExtensionsTests;
+﻿namespace OpenPlanningPoker.GameEngine.Application.UnitTests.QueryableExtensionsTests;
 
 public class GamePlayerQueryableExtensionsTests
 {

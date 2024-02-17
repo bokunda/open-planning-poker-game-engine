@@ -28,7 +28,7 @@ public class GamePlayerTests : BaseApiTests
         var result = await Sender.Send(query);
 
         // Assert
-        result.Game.Should().BeEquivalentTo(game, opt => opt.ExcludingMissingMembers());
+        result.GameId.Should().Be(gameId);
         result.Players.Count.Should().Be(1);
     }
 

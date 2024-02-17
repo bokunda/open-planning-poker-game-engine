@@ -21,4 +21,12 @@ public sealed class Vote : Entity<Guid>
         vote.RaiseDomainEvent(new CreateVoteDomainEvent(vote.Id));
         return vote;
     }
+
+    public void Update(int value)
+    {
+        Value = value;
+
+        SetCreated(DateTimeOffset.UtcNow, CreatedBy);
+        RaiseDomainEvent(new UpdateVoteDomainEvent(Id));
+    }
 }

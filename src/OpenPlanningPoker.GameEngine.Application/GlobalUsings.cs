@@ -12,4 +12,6 @@ global using OpenPlanningPoker.GameEngine.Domain.Abstractions;
 global using OpenPlanningPoker.GameEngine.Domain.GamePlayer;
 global using OpenPlanningPoker.GameEngine.Domain.Games;
 global using OpenPlanningPoker.GameEngine.Domain.GameSettings;
+global using OpenPlanningPoker.GameEngine.Domain.Identity;
 global using OpenPlanningPoker.GameEngine.Domain.Tickets;
+global using OpenPlanningPoker.GameEngine.Domain.Votes;
