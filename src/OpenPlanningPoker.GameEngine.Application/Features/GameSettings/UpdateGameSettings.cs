@@ -28,8 +28,7 @@ public static class UpdateGameSettings
     {
         public MappingProfile()
         {
-            CreateMap<CreateGameSettingsCommand, Domain.GameSettings.GameSettings>();
-            CreateMap<Domain.GameSettings.GameSettings, CreateGameSettingsResponse>();
+            CreateMap<Domain.GameSettings.GameSettings, UpdateGameSettingsResponse>();
         }
     }
 
