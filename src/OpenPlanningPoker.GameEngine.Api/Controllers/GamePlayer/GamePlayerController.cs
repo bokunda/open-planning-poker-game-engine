@@ -1,5 +1,4 @@
 ﻿using OpenPlanningPoker.GameEngine.Application.Features.GamePlayer;
-using OpenPlanningPoker.GameEngine.Application.Features.Games;
 using OpenPlanningPoker.GameEngine.Domain.Identity;
 
 namespace OpenPlanningPoker.GameEngine.Api.Controllers.GamePlayer;
