@@ -44,6 +44,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenPlanningPoker.GameEngine.Application\OpenPlanningPoker.GameEngine.Application.csproj" />
+    <ProjectReference Include="..\OpenPlanningPoker.GameEngine.Client.Api\OpenPlanningPoker.GameEngine.Client.Api.csproj" />
     <ProjectReference Include="..\OpenPlanningPoker.GameEngine.Infrastructure\OpenPlanningPoker.GameEngine.Infrastructure.csproj" />
   </ItemGroup>
 

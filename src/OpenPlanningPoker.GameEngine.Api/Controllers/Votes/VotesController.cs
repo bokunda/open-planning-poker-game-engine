@@ -16,9 +16,9 @@ public class VotesController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{ticketId}")]
-    public async Task<GetVotesResponse> Get(Guid ticketId)
+    public async Task<GetVotesResponse> Get(Guid ticketId, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new GetVotesQuery(ticketId));
+        return await _sender.Send(new GetVotesQuery(ticketId), cancellationToken);
     }
 
     /// <summary>
@@ -29,9 +29,9 @@ public class VotesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<CreateVoteResponse> Post([FromBody] CreateVoteCommand command)
+    public async Task<CreateVoteResponse> Post([FromBody] CreateVoteCommand command, CancellationToken cancellationToken)
     {
-        return await _sender.Send(command);
+        return await _sender.Send(command, cancellationToken);
     }
 
     /// <summary>
@@ -42,8 +42,8 @@ public class VotesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<UpdateVoteResponse> Put([FromBody] UpdateVoteCommand command)
+    public async Task<UpdateVoteResponse> Put([FromBody] UpdateVoteCommand command, CancellationToken cancellationToken)
     {
-        return await _sender.Send(command);
+        return await _sender.Send(command, cancellationToken);
     }
 }

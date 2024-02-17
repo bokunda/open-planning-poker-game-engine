@@ -21,9 +21,9 @@ public class GamePlayerController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{gameId}")]
-    public async Task<ListPlayersResponse> Get(Guid gameId)
+    public async Task<ListPlayersResponse> Get(Guid gameId, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new ListPlayersQuery(gameId));
+        return await _sender.Send(new ListPlayersQuery(gameId), cancellationToken);
     }
 
     /// <summary>
@@ -34,9 +34,9 @@ public class GamePlayerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<JoinGameResponse> Join(Guid gameId)
+    public async Task<JoinGameResponse> Join(Guid gameId, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new JoinGameCommand(gameId, _currentUserProvider.CustomerId));
+        return await _sender.Send(new JoinGameCommand(gameId, _currentUserProvider.CustomerId), cancellationToken);
     }
 
     /// <summary>
@@ -47,8 +47,8 @@ public class GamePlayerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<LeaveGameResponse> Leave(Guid gameId)
+    public async Task<LeaveGameResponse> Leave(Guid gameId, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new LeaveGameCommand(gameId, _currentUserProvider.CustomerId));
+        return await _sender.Send(new LeaveGameCommand(gameId, _currentUserProvider.CustomerId), cancellationToken);
     }
 }

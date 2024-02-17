@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>0.0.1</Version>
+    <Authors>Bojan Piskulic</Authors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>OpenPlanningPoker.GameEngine.Client.Api</Title>
+    <Description>Package that extends HttpClient for OpenPlanningPoker.GameEngine API</Description>
+    <PackageProjectUrl>https://openplanningpoker.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/bokunda/open-planning-poker-game-engine</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenPlanningPoker.GameEngine.Application\OpenPlanningPoker.GameEngine.Application.csproj" />
+  </ItemGroup>
+
+</Project>

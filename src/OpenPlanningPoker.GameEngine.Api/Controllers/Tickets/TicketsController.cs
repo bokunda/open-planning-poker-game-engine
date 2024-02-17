@@ -1,5 +1,4 @@
 ﻿using CsvHelper;
-using System.Globalization;
 
 namespace OpenPlanningPoker.GameEngine.Api.Controllers.Tickets;
 
@@ -19,9 +18,9 @@ public class TicketsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public async Task<GetTicketResponse> Get(Guid id)
+    public async Task<GetTicketResponse> Get(Guid id, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new GetTicketQuery(id));
+        return await _sender.Send(new GetTicketQuery(id), cancellationToken);
     }
 
     /// <summary>
@@ -29,9 +28,9 @@ public class TicketsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("game/{gameId}")]
-    public async Task<GetTicketsResponse> GetTickets(Guid gameId)
+    public async Task<GetTicketsResponse> GetTickets(Guid gameId, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new GetTicketsQuery(gameId));
+        return await _sender.Send(new GetTicketsQuery(gameId), cancellationToken);
     }
 
     /// <summary>
@@ -42,9 +41,9 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<CreateTicketResponse> Post([FromBody] CreateTicketCommand createTicketCommand)
+    public async Task<CreateTicketResponse> Post([FromBody] CreateTicketCommand createTicketCommand, CancellationToken cancellationToken)
     {
-        return await _sender.Send(createTicketCommand);
+        return await _sender.Send(createTicketCommand, cancellationToken);
     }
 
     /// <summary>
@@ -55,9 +54,9 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ImportTicketsResponse> Import([FromBody] ImportTicketsCommand command)
+    public async Task<ImportTicketsResponse> Import([FromBody] ImportTicketsCommand command, CancellationToken cancellationToken)
     {
-        return await _sender.Send(command);
+        return await _sender.Send(command, cancellationToken);
     }
 
     /// <summary>
@@ -68,14 +67,14 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ImportTicketsResponse> ImportCsv(Guid gameId, IFormFile file)
+    public async Task<ImportTicketsResponse> ImportCsv(Guid gameId, IFormFile file, CancellationToken cancellationToken)
     {
         using var reader = new StreamReader(file.OpenReadStream());
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
         var command = new ImportTicketsCommand(gameId, csv.GetRecords<ImportTicketItem>().ToList());
 
-        return await _sender.Send(command);
+        return await _sender.Send(command, cancellationToken);
     }
 
     /// <summary>
@@ -86,8 +85,8 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<DeleteTicketResponse> Import(Guid id)
+    public async Task<DeleteTicketResponse> Delete(Guid id, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new DeleteTicketCommand(id));
+        return await _sender.Send(new DeleteTicketCommand(id), cancellationToken);
     }
 }
