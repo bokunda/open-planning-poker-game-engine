@@ -16,9 +16,9 @@ public class GameSettingsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{gameId}")]
-    public async Task<GetGameSettingsResponse> Get(Guid gameId)
+    public async Task<GetGameSettingsResponse> Get(Guid gameId, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new GetGameSettingsQuery(gameId));
+        return await _sender.Send(new GetGameSettingsQuery(gameId), cancellationToken);
     }
 
     /// <summary>
@@ -29,9 +29,9 @@ public class GameSettingsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<CreateGameSettingsResponse> Post([FromBody] CreateGameSettingsCommand createGameCommand)
+    public async Task<CreateGameSettingsResponse> Post([FromBody] CreateGameSettingsCommand createGameCommand, CancellationToken cancellationToken)
     {
-        return await _sender.Send(createGameCommand);
+        return await _sender.Send(createGameCommand, cancellationToken);
     }
 
     /// <summary>
@@ -42,8 +42,8 @@ public class GameSettingsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<UpdateGameSettingsResponse> Put([FromBody] UpdateGameSettingsCommand createGameCommand)
+    public async Task<UpdateGameSettingsResponse> Put([FromBody] UpdateGameSettingsCommand createGameCommand, CancellationToken cancellationToken)
     {
-        return await _sender.Send(createGameCommand);
+        return await _sender.Send(createGameCommand, cancellationToken);
     }
 }

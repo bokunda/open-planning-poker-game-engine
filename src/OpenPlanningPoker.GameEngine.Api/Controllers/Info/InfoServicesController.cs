@@ -16,8 +16,8 @@ public class InfoController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<GetInfoResponse> Get()
+    public async Task<GetInfoResponse> Get(CancellationToken cancellationToken)
     {
-        return await _sender.Send(new GetInfoQuery());
+        return await _sender.Send(new GetInfoQuery(), cancellationToken);
     }
 }
