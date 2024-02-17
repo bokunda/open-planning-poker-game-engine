@@ -41,7 +41,7 @@ Work in progress.
 
 ## DB Diagram
 
-Work in progress.
+![DB Diagram](Resources/Database/Open%20Planning%20Poker%20-%20Game%20Engine%20DB%20Schema.png "DB Diagram")
 
 ## Technical description
 
