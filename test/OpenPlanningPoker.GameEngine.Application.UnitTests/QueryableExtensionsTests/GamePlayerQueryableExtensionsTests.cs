@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-using OpenPlanningPoker.GameEngine.Domain.GamePlayer;
-using Xunit;
+﻿using OpenPlanningPoker.GameEngine.Domain.GamePlayer;
 
 namespace OpenPlanningPoker.GameEngine.Application.UnitTests.QueryableExtensionsTests;
 

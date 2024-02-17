@@ -1,9 +1,4 @@
-﻿using FluentAssertions;
-using OpenPlanningPoker.GameEngine.Domain.GamePlayer;
-using OpenPlanningPoker.GameEngine.Domain.Tickets;
-using Xunit;
-
-namespace OpenPlanningPoker.GameEngine.Application.UnitTests.QueryableExtensionsTests;
+﻿namespace OpenPlanningPoker.GameEngine.Application.UnitTests.QueryableExtensionsTests;
 
 public class TicketQueryableExtensionsTests
 {
