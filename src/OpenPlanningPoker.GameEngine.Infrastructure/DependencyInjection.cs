@@ -27,6 +27,7 @@ public static class DependencyInjection
 
         services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
         services.AddScoped<IGameRepository, GameRepository>();
+        services.AddScoped<IGamePlayerRepository, GamePlayerRepository>();
         services.AddScoped<ITicketRepository, TicketRepository>();
 
 

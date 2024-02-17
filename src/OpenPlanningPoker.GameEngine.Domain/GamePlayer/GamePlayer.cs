@@ -1,6 +1,6 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Domain.GamePlayer;
 
-public sealed class GamePlayer
+public sealed class GamePlayer : Entity<Guid>
 {
     private GamePlayer(Guid gameId, Guid playerId)
     {
