@@ -2,7 +2,7 @@
 
 public sealed record UpdateVoteResponse(Guid Id, Guid PlayerId, Guid TicketId, int Value);
 
-public sealed record UpdateVoteCommand(Guid Id, Guid TicketId, int Value) : IRequest<UpdateVoteResponse>;
+public sealed record UpdateVoteCommand(Guid Id, int Value) : IRequest<UpdateVoteResponse>;
 
 public static class UpdateVote
 {
@@ -11,9 +11,6 @@ public static class UpdateVote
         public Validator()
         {
             RuleFor(x => x.Id)
-                .NotEmpty();
-
-            RuleFor(x => x.TicketId)
                 .NotEmpty();
 
             RuleFor(x => x.Value)
@@ -49,7 +46,7 @@ public static class UpdateVote
         public async Task<UpdateVoteResponse> Handle(UpdateVoteCommand request, CancellationToken cancellationToken)
         {
             var vote = await _voteRepository.GetByIdAsync(request.Id, cancellationToken);
-            vote!.Update(request.TicketId, request.Value);
+            vote!.Update(request.Value);
             _voteRepository.Update(vote);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

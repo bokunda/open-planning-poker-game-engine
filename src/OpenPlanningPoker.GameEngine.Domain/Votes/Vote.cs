@@ -22,9 +22,8 @@ public sealed class Vote : Entity<Guid>
         return vote;
     }
 
-    public void Update(Guid ticketId, int value)
+    public void Update(int value)
     {
-        TicketId = ticketId;
         Value = value;
 
         SetCreated(DateTimeOffset.UtcNow, CreatedBy);
