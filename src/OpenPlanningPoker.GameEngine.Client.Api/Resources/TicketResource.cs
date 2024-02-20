@@ -3,7 +3,7 @@
 public class TicketResource : ITicketResource
 {
     private readonly HttpClient _httpClient;
-    private const string ControllerName = nameof(TicketResource);
+    private const string ControllerName = "tickets";
 
     public TicketResource(HttpClient httpClient)
     {

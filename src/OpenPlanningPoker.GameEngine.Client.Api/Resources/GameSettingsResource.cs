@@ -3,7 +3,7 @@
 public class GameSettingsResource : IGameSettingsResource
 {
     private readonly HttpClient _httpClient;
-    private const string ControllerName = nameof(GameSettingsResource);
+    private const string ControllerName = "gamesettings";
 
     public GameSettingsResource(HttpClient httpClient)
     {

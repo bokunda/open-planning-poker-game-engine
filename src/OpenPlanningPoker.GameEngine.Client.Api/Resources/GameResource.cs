@@ -4,8 +4,8 @@ public class GameResource : IGameResource
 {
     private readonly HttpClient _httpClient;
 
-    private const string ControllerNameGame = nameof(GameResource);
-    private const string ControllerNameGamePlayer = nameof(GameResource);
+    private const string ControllerNameGame = "games";
+    private const string ControllerNameGamePlayer = "gameplayer";
 
     public GameResource(HttpClient httpClient)
     {
