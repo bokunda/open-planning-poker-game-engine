@@ -37,7 +37,7 @@ public static class LeaveGame
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<LeaveGameResponse> Handle(LeaveGameCommand request, CancellationToken cancellationToken)
+        public async Task<LeaveGameResponse> Handle(LeaveGameCommand request, CancellationToken cancellationToken = default)
         {
             var result = await _gamePlayerRepository.GetByGameAndPlayer(request.GameId, request.UserId, cancellationToken);
             _gamePlayerRepository.Delete(result);

@@ -33,7 +33,7 @@ public static class GetVotes
             _mapper = mapper;
         }
 
-        public async Task<GetVotesResponse> Handle(GetVotesQuery request, CancellationToken cancellationToken)
+        public async Task<GetVotesResponse> Handle(GetVotesQuery request, CancellationToken cancellationToken = default)
         {
             var result = await _voteRepository.GetByTicket(request.TicketId, cancellationToken);
             var mappedResult = _mapper.Map<ICollection<GetVotesVoteItem>>(result);

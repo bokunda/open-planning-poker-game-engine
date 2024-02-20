@@ -32,7 +32,7 @@ public static class GetGame
             _mapper = mapper;
         }
 
-        public async Task<GetGameResponse> Handle(GetGameQuery request, CancellationToken cancellationToken)
+        public async Task<GetGameResponse> Handle(GetGameQuery request, CancellationToken cancellationToken = default)
         {
             var data = await _gameRepository.GetByIdAsync(request.GameId, cancellationToken);
             return _mapper.Map<GetGameResponse>(data);

@@ -18,7 +18,7 @@ public class GamesController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public async Task<GetGameResponseApi> Get(Guid id, CancellationToken cancellationToken)
+    public async Task<GetGameResponseApi> Get(Guid id, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetGameQuery(id), cancellationToken);
         return _mapper.Map<GetGameResponseApi>(result);
@@ -32,7 +32,7 @@ public class GamesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<CreateGameResponseApi> Post([FromBody] CreateGameCommand createGameCommand, CancellationToken cancellationToken)
+    public async Task<CreateGameResponseApi> Post([FromBody] CreateGameCommand createGameCommand, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(createGameCommand, cancellationToken);
         return _mapper.Map<CreateGameResponseApi>(result);

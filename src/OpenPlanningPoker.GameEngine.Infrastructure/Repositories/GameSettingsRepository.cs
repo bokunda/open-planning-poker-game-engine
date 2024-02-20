@@ -6,7 +6,7 @@ public sealed class GameSettingsRepository : Repository<GameSettings, Guid>, IGa
     {
     }
 
-    public async Task<GameSettings> GetByGame(Guid gameId, CancellationToken cancellationToken) =>
+    public async Task<GameSettings> GetByGame(Guid gameId, CancellationToken cancellationToken = default) =>
         await DbContext.Set<GameSettings>()
             .QueryByGame(gameId)
             .FirstAsync(cancellationToken);

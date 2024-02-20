@@ -29,7 +29,7 @@ public static class DeleteGame
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<DeleteGameResponse> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteGameResponse> Handle(DeleteGameCommand request, CancellationToken cancellationToken = default)
         {
             var game = (await _gameRepository.GetByIdAsync(request.GameId, cancellationToken))!;
             _gameRepository.Delete(game);

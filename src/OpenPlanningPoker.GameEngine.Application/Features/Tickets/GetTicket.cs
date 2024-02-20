@@ -32,7 +32,7 @@ public static class GetTicket
             _mapper = mapper;
         }
 
-        public async Task<GetTicketResponse> Handle(GetTicketQuery request, CancellationToken cancellationToken)
+        public async Task<GetTicketResponse> Handle(GetTicketQuery request, CancellationToken cancellationToken = default)
         {
             var data = await _ticketRepository.GetByIdAsync(request.TicketId, cancellationToken);
             return _mapper.Map<GetTicketResponse>(data);

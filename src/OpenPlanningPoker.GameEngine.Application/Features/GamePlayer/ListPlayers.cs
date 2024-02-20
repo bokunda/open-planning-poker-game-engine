@@ -25,7 +25,7 @@ public static class ListPlayers
             _gamePlayerRepository = gamePlayerRepository;
         }
 
-        public async Task<ListPlayersResponse> Handle(ListPlayersQuery request, CancellationToken cancellationToken)
+        public async Task<ListPlayersResponse> Handle(ListPlayersQuery request, CancellationToken cancellationToken = default)
         {
             var gamePlayers = await _gamePlayerRepository.GetByGame(request.GameId, cancellationToken);
 

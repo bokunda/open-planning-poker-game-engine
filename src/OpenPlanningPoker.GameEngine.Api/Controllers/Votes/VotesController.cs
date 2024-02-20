@@ -18,7 +18,7 @@ public class VotesController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{ticketId}")]
-    public async Task<GetVotesResponseApi> Get(Guid ticketId, CancellationToken cancellationToken)
+    public async Task<GetVotesResponseApi> Get(Guid ticketId, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetVotesQuery(ticketId), cancellationToken);
         return _mapper.Map<GetVotesResponseApi>(result);
@@ -32,7 +32,7 @@ public class VotesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<CreateVoteResponseApi> Post([FromBody] CreateVoteCommandApi command, CancellationToken cancellationToken)
+    public async Task<CreateVoteResponseApi> Post([FromBody] CreateVoteCommandApi command, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(_mapper.Map<CreateVoteCommand>(command), cancellationToken);
         return _mapper.Map<CreateVoteResponseApi>(result);
@@ -47,7 +47,7 @@ public class VotesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<UpdateVoteResponseApi> Put([FromBody] UpdateVoteCommandApi command, CancellationToken cancellationToken)
+    public async Task<UpdateVoteResponseApi> Put([FromBody] UpdateVoteCommandApi command, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(_mapper.Map<UpdateVoteCommand>(command), cancellationToken);
         return _mapper.Map<UpdateVoteResponseApi>(result);

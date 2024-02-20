@@ -20,7 +20,7 @@ public class GamePlayerController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{gameId}")]
-    public async Task<ListPlayersResponseApi> Get(Guid gameId, CancellationToken cancellationToken)
+    public async Task<ListPlayersResponseApi> Get(Guid gameId, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new ListPlayersQuery(gameId), cancellationToken);
         return _mapper.Map<ListPlayersResponseApi>(result);
@@ -34,7 +34,7 @@ public class GamePlayerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<JoinGameResponseApi> Join(Guid gameId, CancellationToken cancellationToken)
+    public async Task<JoinGameResponseApi> Join(Guid gameId, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new JoinGameCommand(gameId, _currentUserProvider.CustomerId), cancellationToken);
         return _mapper.Map<JoinGameResponseApi>(result);
@@ -48,7 +48,7 @@ public class GamePlayerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<LeaveGameResponseApi> Leave(Guid gameId, CancellationToken cancellationToken)
+    public async Task<LeaveGameResponseApi> Leave(Guid gameId, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new LeaveGameCommand(gameId, _currentUserProvider.CustomerId), cancellationToken);
         return _mapper.Map<LeaveGameResponseApi>(result);

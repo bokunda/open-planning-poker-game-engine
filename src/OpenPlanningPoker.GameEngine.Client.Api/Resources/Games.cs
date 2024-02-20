@@ -16,7 +16,7 @@ public class Games
     /// Returns game details - {id}
     /// </summary>
     /// <returns></returns>
-    public async Task<GetGameResponse> GetGameDetails(Guid id, CancellationToken cancellationToken)
+    public async Task<GetGameResponse> GetGameDetails(Guid id, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.GetAsync($"{ControllerNameGame}/{id}", cancellationToken);
         return (await response.Content.ReadFromJsonAsync<GetGameResponse>(cancellationToken))!;
@@ -26,7 +26,7 @@ public class Games
     /// Creates a game
     /// </summary>
     /// <returns></returns>
-    public async Task<CreateGameResponse> CreateGame(CreateGameCommand data, CancellationToken cancellationToken)
+    public async Task<CreateGameResponse> CreateGame(CreateGameCommand data, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.PostAsJsonAsync(ControllerNameGame, data, cancellationToken);
         return (await response.Content.ReadFromJsonAsync<CreateGameResponse>(cancellationToken))!;
@@ -35,7 +35,7 @@ public class Games
     /// <summary>
     /// Returns game with participants - {gameId}
     /// </summary>
-    public async Task<ListPlayersResponse> GetParticipants(Guid gameId, CancellationToken cancellationToken)
+    public async Task<ListPlayersResponse> GetParticipants(Guid gameId, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.GetAsync($"{ControllerNameGamePlayer}/{gameId}", cancellationToken);
         return (await response.Content.ReadFromJsonAsync<ListPlayersResponse>(cancellationToken))!;
@@ -44,7 +44,7 @@ public class Games
     /// <summary>
     /// Join Game - join/{gameId}
     /// </summary>
-    public async Task<JoinGameResponse> JoinGame(Guid gameId, CancellationToken cancellationToken)
+    public async Task<JoinGameResponse> JoinGame(Guid gameId, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.PostAsJsonAsync($"{ControllerNameGame}/join/{gameId}", new {}, cancellationToken);
         return (await response.Content.ReadFromJsonAsync<JoinGameResponse>(cancellationToken))!;
@@ -53,7 +53,7 @@ public class Games
     /// <summary>
     /// Leave a Game - leave/{gameId}
     /// </summary>
-    public async Task<LeaveGameResponse> LeaveGame(Guid gameId, CancellationToken cancellationToken)
+    public async Task<LeaveGameResponse> LeaveGame(Guid gameId, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.PostAsJsonAsync($"{ControllerNameGame}/leave/{gameId}", new { }, cancellationToken);
         return (await response.Content.ReadFromJsonAsync<LeaveGameResponse>(cancellationToken))!;

@@ -44,7 +44,7 @@ public static class CreateTicket
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<CreateTicketResponse> Handle(CreateTicketCommand request, CancellationToken cancellationToken)
+        public async Task<CreateTicketResponse> Handle(CreateTicketCommand request, CancellationToken cancellationToken = default)
         {
             var ticket = Ticket.Create(request.GameId, request.Name, request.Description);
             _ticketRepository.Add(ticket);

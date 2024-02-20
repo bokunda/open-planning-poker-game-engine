@@ -41,7 +41,7 @@ public static class CreateGame
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<CreateGameResponse> Handle(CreateGameCommand request, CancellationToken cancellationToken)
+        public async Task<CreateGameResponse> Handle(CreateGameCommand request, CancellationToken cancellationToken = default)
         {
             // Create a game
             var game = Game.Create(request.Name, request.Description);

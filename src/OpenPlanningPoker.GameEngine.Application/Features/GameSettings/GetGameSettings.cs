@@ -32,7 +32,7 @@ public static class GetGameSettings
             _mapper = mapper;
         }
 
-        public async Task<GetGameSettingsResponse> Handle(GetGameSettingsQuery request, CancellationToken cancellationToken)
+        public async Task<GetGameSettingsResponse> Handle(GetGameSettingsQuery request, CancellationToken cancellationToken = default)
         {
             var data = await _gameSettingsRepository.GetByGame(request.GameId, cancellationToken);
             return _mapper.Map<GetGameSettingsResponse>(data);

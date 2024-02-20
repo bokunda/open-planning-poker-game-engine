@@ -18,7 +18,7 @@ public class GameSettingsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{gameId}")]
-    public async Task<GetGameSettingsResponseApi> Get(Guid gameId, CancellationToken cancellationToken)
+    public async Task<GetGameSettingsResponseApi> Get(Guid gameId, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetGameSettingsQuery(gameId), cancellationToken);
         return _mapper.Map<GetGameSettingsResponseApi>(result);
@@ -32,7 +32,7 @@ public class GameSettingsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<CreateGameSettingsResponseApi> Post([FromBody] CreateGameSettingsCommandApi command, CancellationToken cancellationToken)
+    public async Task<CreateGameSettingsResponseApi> Post([FromBody] CreateGameSettingsCommandApi command, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(_mapper.Map<CreateGameSettingsCommand>(command), cancellationToken);
         return _mapper.Map<CreateGameSettingsResponseApi>(result);
@@ -46,7 +46,7 @@ public class GameSettingsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<UpdateGameSettingsResponseApi> Put([FromBody] UpdateGameSettingsCommandApi command, CancellationToken cancellationToken)
+    public async Task<UpdateGameSettingsResponseApi> Put([FromBody] UpdateGameSettingsCommandApi command, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(_mapper.Map<UpdateGameSettingsCommand>(command), cancellationToken);
         return _mapper.Map<UpdateGameSettingsResponseApi>(result);

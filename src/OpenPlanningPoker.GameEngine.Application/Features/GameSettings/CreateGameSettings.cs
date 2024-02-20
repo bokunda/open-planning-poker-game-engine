@@ -43,7 +43,7 @@ public static class CreateGameSettings
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<CreateGameSettingsResponse> Handle(CreateGameSettingsCommand request, CancellationToken cancellationToken)
+        public async Task<CreateGameSettingsResponse> Handle(CreateGameSettingsCommand request, CancellationToken cancellationToken = default)
         {
             var game = Domain.GameSettings.GameSettings.Create(request.GameId, request.VotingTime, request.IsBreakAllowed);
             _gameSettingsRepository.Add(game);

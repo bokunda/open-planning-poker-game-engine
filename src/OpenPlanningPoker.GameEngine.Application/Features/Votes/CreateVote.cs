@@ -46,7 +46,7 @@ public static class CreateVote
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<CreateVoteResponse> Handle(CreateVoteCommand request, CancellationToken cancellationToken)
+        public async Task<CreateVoteResponse> Handle(CreateVoteCommand request, CancellationToken cancellationToken = default)
         {
             var vote = Vote.Create(_currentUserProvider.CustomerId, request.TicketId, request.Value);
             _voteRepository.Add(vote);

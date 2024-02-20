@@ -6,7 +6,7 @@ public class VoteRepository : Repository<Vote, Guid>, IVoteRepository
     {
     }
 
-    public async Task<ICollection<Vote>> GetByTicket(Guid ticketId, CancellationToken cancellationToken) =>
+    public async Task<ICollection<Vote>> GetByTicket(Guid ticketId, CancellationToken cancellationToken = default) =>
         await DbContext.Set<Vote>()
             .QueryByTicket(ticketId)
             .ToListAsync(cancellationToken);

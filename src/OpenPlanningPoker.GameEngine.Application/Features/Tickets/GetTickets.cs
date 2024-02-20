@@ -34,7 +34,7 @@ public static class GetTickets
             _mapper = mapper;
         }
 
-        public async Task<GetTicketsResponse> Handle(GetTicketsQuery request, CancellationToken cancellationToken)
+        public async Task<GetTicketsResponse> Handle(GetTicketsQuery request, CancellationToken cancellationToken = default)
         {
             var data = await _ticketRepository.GetByGame(request.GameId, cancellationToken);
             var mappedData = _mapper.Map<ICollection<GetTicketsItem>>(data);

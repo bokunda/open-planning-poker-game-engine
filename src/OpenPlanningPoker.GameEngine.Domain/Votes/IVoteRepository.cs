@@ -2,5 +2,5 @@
 
 public interface IVoteRepository : IRepository<Vote, Guid>
 {
-    Task<ICollection<Vote>> GetByTicket(Guid ticketId, CancellationToken cancellationToken);
+    Task<ICollection<Vote>> GetByTicket(Guid ticketId, CancellationToken cancellationToken = default);
 }

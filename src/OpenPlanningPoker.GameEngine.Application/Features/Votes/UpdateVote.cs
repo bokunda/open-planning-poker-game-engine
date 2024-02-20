@@ -43,7 +43,7 @@ public static class UpdateVote
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<UpdateVoteResponse> Handle(UpdateVoteCommand request, CancellationToken cancellationToken)
+        public async Task<UpdateVoteResponse> Handle(UpdateVoteCommand request, CancellationToken cancellationToken = default)
         {
             var vote = await _voteRepository.GetByIdAsync(request.Id, cancellationToken);
             vote!.Update(request.Value);

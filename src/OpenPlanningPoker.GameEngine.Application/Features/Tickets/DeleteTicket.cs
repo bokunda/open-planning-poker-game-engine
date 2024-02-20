@@ -26,7 +26,7 @@ public static class DeleteTicket
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<DeleteTicketResponse> Handle(DeleteTicketCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteTicketResponse> Handle(DeleteTicketCommand request, CancellationToken cancellationToken = default)
         {
             var ticket = (await _ticketRepository.GetByIdAsync(request.TicketId, cancellationToken))!;
             _ticketRepository.Delete(ticket);

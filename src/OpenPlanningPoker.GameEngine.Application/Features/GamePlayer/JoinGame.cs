@@ -37,7 +37,7 @@ public static class JoinGame
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<JoinGameResponse> Handle(JoinGameCommand request, CancellationToken cancellationToken)
+        public async Task<JoinGameResponse> Handle(JoinGameCommand request, CancellationToken cancellationToken = default)
         {
             var gamePlayer = Domain.GamePlayer.GamePlayer.Create(request.GameId, request.UserId);
             _gamePlayerRepository.Add(gamePlayer);

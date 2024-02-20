@@ -38,7 +38,7 @@ public static class ImportTickets
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ImportTicketsResponse> Handle(ImportTicketsCommand request, CancellationToken cancellationToken)
+        public async Task<ImportTicketsResponse> Handle(ImportTicketsCommand request, CancellationToken cancellationToken = default)
         {
             var tickets = request.Tickets.Select(ticket => Ticket.Create(request.GameId, ticket.Name, ticket.Description));
             _ticketRepository.AddRange(tickets);

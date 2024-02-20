@@ -20,7 +20,7 @@ public class TicketsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public async Task<GetTicketResponseApi> Get(Guid id, CancellationToken cancellationToken)
+    public async Task<GetTicketResponseApi> Get(Guid id, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetTicketQuery(id), cancellationToken);
         return _mapper.Map<GetTicketResponseApi>(result);
@@ -31,7 +31,7 @@ public class TicketsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("game/{gameId}")]
-    public async Task<GetTicketsResponseApi> GetTickets(Guid gameId, CancellationToken cancellationToken)
+    public async Task<GetTicketsResponseApi> GetTickets(Guid gameId, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetTicketsQuery(gameId), cancellationToken);
         return _mapper.Map<GetTicketsResponseApi>(result);
@@ -45,7 +45,7 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<CreateTicketResponseApi> Post([FromBody] CreateTicketCommandApi command, CancellationToken cancellationToken)
+    public async Task<CreateTicketResponseApi> Post([FromBody] CreateTicketCommandApi command, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(_mapper.Map<CreateTicketCommand>(command), cancellationToken);
         return _mapper.Map<CreateTicketResponseApi>(result);
@@ -59,7 +59,7 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ImportTicketsResponseApi> Import([FromBody] ImportTicketsCommandApi command, CancellationToken cancellationToken)
+    public async Task<ImportTicketsResponseApi> Import([FromBody] ImportTicketsCommandApi command, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(_mapper.Map<ImportTicketsCommand>(command), cancellationToken);
         return _mapper.Map<ImportTicketsResponseApi>(result);
@@ -73,7 +73,7 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ImportTicketsResponseApi> ImportCsv(Guid gameId, IFormFile file, CancellationToken cancellationToken)
+    public async Task<ImportTicketsResponseApi> ImportCsv(Guid gameId, IFormFile file, CancellationToken cancellationToken = default)
     {
         using var reader = new StreamReader(file.OpenReadStream());
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
@@ -92,7 +92,7 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<DeleteTicketResponseApi> Delete(Guid id, CancellationToken cancellationToken)
+    public async Task<DeleteTicketResponseApi> Delete(Guid id, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new DeleteTicketCommand(id), cancellationToken);
         return _mapper.Map<DeleteTicketResponseApi>(result);

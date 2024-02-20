@@ -45,7 +45,7 @@ public static class UpdateGameSettings
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<UpdateGameSettingsResponse> Handle(UpdateGameSettingsCommand request, CancellationToken cancellationToken)
+        public async Task<UpdateGameSettingsResponse> Handle(UpdateGameSettingsCommand request, CancellationToken cancellationToken = default)
         {
             // Create a game
             var gameSettings = await _gameSettingsRepository.GetByIdAsync(request.Id, cancellationToken);
