@@ -2,7 +2,7 @@
 
 public class GameEngineClient
 {
-    private HttpClient _httpClient;
+    private readonly HttpClient _httpClient;
 
     public GameEngineClient(IHttpClientFactory httpClientFactory)
     {

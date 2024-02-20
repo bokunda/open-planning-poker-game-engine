@@ -5,10 +5,12 @@
 public class VotesController : ControllerBase
 {
     private readonly ISender _sender;
+    private readonly IMapper _mapper;
 
-    public VotesController(ISender sender)
+    public VotesController(ISender sender, IMapper mapper)
     {
         _sender = sender;
+        _mapper = mapper;
     }
 
     /// <summary>
@@ -16,9 +18,10 @@ public class VotesController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{ticketId}")]
-    public async Task<GetVotesResponse> Get(Guid ticketId, CancellationToken cancellationToken)
+    public async Task<GetVotesResponseApi> Get(Guid ticketId, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new GetVotesQuery(ticketId), cancellationToken);
+        var result = await _sender.Send(new GetVotesQuery(ticketId), cancellationToken);
+        return _mapper.Map<GetVotesResponseApi>(result);
     }
 
     /// <summary>
@@ -29,9 +32,11 @@ public class VotesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<CreateVoteResponse> Post([FromBody] CreateVoteCommand command, CancellationToken cancellationToken)
+    public async Task<CreateVoteResponseApi> Post([FromBody] CreateVoteCommandApi command, CancellationToken cancellationToken)
     {
-        return await _sender.Send(command, cancellationToken);
+        var result = await _sender.Send(_mapper.Map<CreateVoteCommand>(command), cancellationToken);
+        return _mapper.Map<CreateVoteResponseApi>(result);
+
     }
 
     /// <summary>
@@ -42,8 +47,9 @@ public class VotesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<UpdateVoteResponse> Put([FromBody] UpdateVoteCommand command, CancellationToken cancellationToken)
+    public async Task<UpdateVoteResponseApi> Put([FromBody] UpdateVoteCommandApi command, CancellationToken cancellationToken)
     {
-        return await _sender.Send(command, cancellationToken);
+        var result = await _sender.Send(_mapper.Map<UpdateVoteCommand>(command), cancellationToken);
+        return _mapper.Map<UpdateVoteResponseApi>(result);
     }
 }

@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Authors>Bojan Piskulic</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>OpenPlanningPoker.GameEngine.Client.Api</Title>
@@ -14,7 +14,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenPlanningPoker.GameEngine.Application\OpenPlanningPoker.GameEngine.Application.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenPlanningPoker.GameEngine.Api.Models\OpenPlanningPoker.GameEngine.Api.Models.csproj" />
   </ItemGroup>
 
 </Project>

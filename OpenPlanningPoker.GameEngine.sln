@@ -43,7 +43,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{2E
 		Resources\Database\Open Planning Poker - Game Engine DB Schema_code.txt = Resources\Database\Open Planning Poker - Game Engine DB Schema_code.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenPlanningPoker.GameEngine.Client.Api", "src\OpenPlanningPoker.GameEngine.Client.Api\OpenPlanningPoker.GameEngine.Client.Api.csproj", "{C796EF3B-1522-48C1-9EAB-4740602CDE6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenPlanningPoker.GameEngine.Client.Api", "src\OpenPlanningPoker.GameEngine.Client.Api\OpenPlanningPoker.GameEngine.Client.Api.csproj", "{C796EF3B-1522-48C1-9EAB-4740602CDE6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenPlanningPoker.GameEngine.Api.Models", "src\OpenPlanningPoker.GameEngine.Api.Models\OpenPlanningPoker.GameEngine.Api.Models.csproj", "{D036CB90-AA57-47F0-9C8F-E4C58E0C666A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{C796EF3B-1522-48C1-9EAB-4740602CDE6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C796EF3B-1522-48C1-9EAB-4740602CDE6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C796EF3B-1522-48C1-9EAB-4740602CDE6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D036CB90-AA57-47F0-9C8F-E4C58E0C666A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D036CB90-AA57-47F0-9C8F-E4C58E0C666A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D036CB90-AA57-47F0-9C8F-E4C58E0C666A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D036CB90-AA57-47F0-9C8F-E4C58E0C666A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,6 +123,7 @@ Global
 		{95B1322A-FFDB-4495-A513-44086723CF60} = {C3672BE8-FA33-40F5-ACF9-DA5CA1B8C7C4}
 		{2EDCA0F3-E7C5-45DF-8D0F-B096EA8E796E} = {0BB672C9-DC9F-46DF-B858-B685D3C69526}
 		{C796EF3B-1522-48C1-9EAB-4740602CDE6E} = {C3672BE8-FA33-40F5-ACF9-DA5CA1B8C7C4}
+		{D036CB90-AA57-47F0-9C8F-E4C58E0C666A} = {C3672BE8-FA33-40F5-ACF9-DA5CA1B8C7C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86AE6888-9D89-4CB7-918F-72F30024A42E}
