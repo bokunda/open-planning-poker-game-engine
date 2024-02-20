@@ -5,10 +5,12 @@
 public class GamesController : ControllerBase
 {
     private readonly ISender _sender;
+    private readonly IMapper _mapper;
 
-    public GamesController(ISender sender)
+    public GamesController(ISender sender, IMapper mapper)
     {
         _sender = sender;
+        _mapper = mapper;
     }
 
     /// <summary>
@@ -16,9 +18,10 @@ public class GamesController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public async Task<GetGameResponse> Get(Guid id, CancellationToken cancellationToken)
+    public async Task<GetGameResponseApi> Get(Guid id, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new GetGameQuery(id), cancellationToken);
+        var result = await _sender.Send(new GetGameQuery(id), cancellationToken);
+        return _mapper.Map<GetGameResponseApi>(result);
     }
 
     /// <summary>
@@ -29,8 +32,9 @@ public class GamesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<CreateGameResponse> Post([FromBody] CreateGameCommand createGameCommand, CancellationToken cancellationToken)
+    public async Task<CreateGameResponseApi> Post([FromBody] CreateGameCommand createGameCommand, CancellationToken cancellationToken)
     {
-        return await _sender.Send(createGameCommand, cancellationToken);
+        var result = await _sender.Send(createGameCommand, cancellationToken);
+        return _mapper.Map<CreateGameResponseApi>(result);
     }
 }

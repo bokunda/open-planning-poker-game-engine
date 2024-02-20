@@ -21,6 +21,8 @@ builder.Services.AddMemoryCache();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
 builder.Host.UseSerilog();
 
 Log.Logger = new LoggerConfiguration()

@@ -5,10 +5,12 @@
 public class GameSettingsController : ControllerBase
 {
     private readonly ISender _sender;
+    private readonly IMapper _mapper;
 
-    public GameSettingsController(ISender sender)
+    public GameSettingsController(ISender sender, IMapper mapper)
     {
         _sender = sender;
+        _mapper = mapper;
     }
 
     /// <summary>
@@ -16,9 +18,10 @@ public class GameSettingsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{gameId}")]
-    public async Task<GetGameSettingsResponse> Get(Guid gameId, CancellationToken cancellationToken)
+    public async Task<GetGameSettingsResponseApi> Get(Guid gameId, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new GetGameSettingsQuery(gameId), cancellationToken);
+        var result = await _sender.Send(new GetGameSettingsQuery(gameId), cancellationToken);
+        return _mapper.Map<GetGameSettingsResponseApi>(result);
     }
 
     /// <summary>
@@ -29,9 +32,10 @@ public class GameSettingsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<CreateGameSettingsResponse> Post([FromBody] CreateGameSettingsCommand createGameCommand, CancellationToken cancellationToken)
+    public async Task<CreateGameSettingsResponseApi> Post([FromBody] CreateGameSettingsCommandApi command, CancellationToken cancellationToken)
     {
-        return await _sender.Send(createGameCommand, cancellationToken);
+        var result = await _sender.Send(_mapper.Map<CreateGameSettingsCommand>(command), cancellationToken);
+        return _mapper.Map<CreateGameSettingsResponseApi>(result);
     }
 
     /// <summary>
@@ -42,8 +46,9 @@ public class GameSettingsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<UpdateGameSettingsResponse> Put([FromBody] UpdateGameSettingsCommand createGameCommand, CancellationToken cancellationToken)
+    public async Task<UpdateGameSettingsResponseApi> Put([FromBody] UpdateGameSettingsCommandApi command, CancellationToken cancellationToken)
     {
-        return await _sender.Send(createGameCommand, cancellationToken);
+        var result = await _sender.Send(_mapper.Map<UpdateGameSettingsCommand>(command), cancellationToken);
+        return _mapper.Map<UpdateGameSettingsResponseApi>(result);
     }
 }

@@ -7,10 +7,12 @@ namespace OpenPlanningPoker.GameEngine.Api.Controllers.Tickets;
 public class TicketsController : ControllerBase
 {
     private readonly ISender _sender;
+    private readonly IMapper _mapper;
 
-    public TicketsController(ISender sender)
+    public TicketsController(ISender sender, IMapper mapper)
     {
         _sender = sender;
+        _mapper = mapper;
     }
 
     /// <summary>
@@ -18,9 +20,10 @@ public class TicketsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public async Task<GetTicketResponse> Get(Guid id, CancellationToken cancellationToken)
+    public async Task<GetTicketResponseApi> Get(Guid id, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new GetTicketQuery(id), cancellationToken);
+        var result = await _sender.Send(new GetTicketQuery(id), cancellationToken);
+        return _mapper.Map<GetTicketResponseApi>(result);
     }
 
     /// <summary>
@@ -28,9 +31,10 @@ public class TicketsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("game/{gameId}")]
-    public async Task<GetTicketsResponse> GetTickets(Guid gameId, CancellationToken cancellationToken)
+    public async Task<GetTicketsResponseApi> GetTickets(Guid gameId, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new GetTicketsQuery(gameId), cancellationToken);
+        var result = await _sender.Send(new GetTicketsQuery(gameId), cancellationToken);
+        return _mapper.Map<GetTicketsResponseApi>(result);
     }
 
     /// <summary>
@@ -41,9 +45,10 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<CreateTicketResponse> Post([FromBody] CreateTicketCommand createTicketCommand, CancellationToken cancellationToken)
+    public async Task<CreateTicketResponseApi> Post([FromBody] CreateTicketCommandApi command, CancellationToken cancellationToken)
     {
-        return await _sender.Send(createTicketCommand, cancellationToken);
+        var result = await _sender.Send(_mapper.Map<CreateTicketCommand>(command), cancellationToken);
+        return _mapper.Map<CreateTicketResponseApi>(result);
     }
 
     /// <summary>
@@ -54,9 +59,10 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ImportTicketsResponse> Import([FromBody] ImportTicketsCommand command, CancellationToken cancellationToken)
+    public async Task<ImportTicketsResponseApi> Import([FromBody] ImportTicketsCommandApi command, CancellationToken cancellationToken)
     {
-        return await _sender.Send(command, cancellationToken);
+        var result = await _sender.Send(_mapper.Map<ImportTicketsCommand>(command), cancellationToken);
+        return _mapper.Map<ImportTicketsResponseApi>(result);
     }
 
     /// <summary>
@@ -67,14 +73,15 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ImportTicketsResponse> ImportCsv(Guid gameId, IFormFile file, CancellationToken cancellationToken)
+    public async Task<ImportTicketsResponseApi> ImportCsv(Guid gameId, IFormFile file, CancellationToken cancellationToken)
     {
         using var reader = new StreamReader(file.OpenReadStream());
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
 
         var command = new ImportTicketsCommand(gameId, csv.GetRecords<ImportTicketItem>().ToList());
 
-        return await _sender.Send(command, cancellationToken);
+        var result = await _sender.Send(command, cancellationToken);
+        return _mapper.Map<ImportTicketsResponseApi>(result);
     }
 
     /// <summary>
@@ -85,8 +92,9 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<DeleteTicketResponse> Delete(Guid id, CancellationToken cancellationToken)
+    public async Task<DeleteTicketResponseApi> Delete(Guid id, CancellationToken cancellationToken)
     {
-        return await _sender.Send(new DeleteTicketCommand(id), cancellationToken);
+        var result = await _sender.Send(new DeleteTicketCommand(id), cancellationToken);
+        return _mapper.Map<DeleteTicketResponseApi>(result);
     }
 }
