@@ -7,10 +7,18 @@
     <Version>0.0.2</Version>
     <Authors>Bojan Piskulic</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>OpenPlanningPoker.GameEngine.Api.Models</Title>
-    <Description>Package that contains models for OpenPlanningPoker.GameEngine API</Description>
+    <Title>OpenPlanningPoker.GameEngine.Client.Abstractions</Title>
+    <Description>Package that abstracts OpenPlanningPoker.GameEngine API</Description>
     <PackageProjectUrl>https://openplanningpoker.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bokunda/open-planning-poker-game-engine</RepositoryUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenPlanningPoker.GameEngine.Api.Models\OpenPlanningPoker.GameEngine.Api.Models.csproj" />
+  </ItemGroup>
 
 </Project>

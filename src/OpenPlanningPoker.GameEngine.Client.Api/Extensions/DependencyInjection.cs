@@ -21,7 +21,7 @@ public static class DependencyInjection
         });
         #endif
 
-        services.AddTransient<GameEngineClient>();
+        services.AddTransient<IGameEngineClient, GameEngineClient>();
         return services;
     }
 }

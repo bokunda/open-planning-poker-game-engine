@@ -1,40 +1,29 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Client.Api.Resources;
 
-public class Games
+public class GameResource : IGameResource
 {
     private readonly HttpClient _httpClient;
 
-    private const string ControllerNameGame = nameof(Games);
-    private const string ControllerNameGamePlayer = nameof(Games);
+    private const string ControllerNameGame = nameof(GameResource);
+    private const string ControllerNameGamePlayer = nameof(GameResource);
 
-    public Games(HttpClient httpClient)
+    public GameResource(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
 
-    /// <summary>
-    /// Returns game details - {id}
-    /// </summary>
-    /// <returns></returns>
     public async Task<GetGameResponse> GetGameDetails(Guid id, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.GetAsync($"{ControllerNameGame}/{id}", cancellationToken);
         return (await response.Content.ReadFromJsonAsync<GetGameResponse>(cancellationToken))!;
     }
 
-    /// <summary>
-    /// Creates a game
-    /// </summary>
-    /// <returns></returns>
     public async Task<CreateGameResponse> CreateGame(CreateGameCommand data, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.PostAsJsonAsync(ControllerNameGame, data, cancellationToken);
         return (await response.Content.ReadFromJsonAsync<CreateGameResponse>(cancellationToken))!;
     }
 
-    /// <summary>
-    /// Returns game with participants - {gameId}
-    /// </summary>
     public async Task<ListPlayersResponse> GetParticipants(Guid gameId, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.GetAsync($"{ControllerNameGamePlayer}/{gameId}", cancellationToken);

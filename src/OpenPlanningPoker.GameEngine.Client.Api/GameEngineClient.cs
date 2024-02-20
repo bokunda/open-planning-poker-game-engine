@@ -1,6 +1,6 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Client.Api;
 
-public class GameEngineClient
+public class GameEngineClient : IGameEngineClient
 {
     private readonly HttpClient _httpClient;
 
@@ -9,8 +9,8 @@ public class GameEngineClient
         _httpClient = httpClientFactory.CreateClient(nameof(GameEngineClient));
     }
 
-    public Games Games => new(_httpClient);
-    public GameSettings GameSettings => new(_httpClient);
-    public Tickets Tickets => new(_httpClient);
-    public Votes Votes => new(_httpClient);
+    public IGameResource GameResource => new GameResource(_httpClient);
+    public IGameSettingsResource GameSettingsResource => new GameSettingsResource(_httpClient);
+    public ITicketResource TicketResource => new TicketResource(_httpClient);
+    public IVoteResource VoteResource => new VoteResource(_httpClient);
 }
