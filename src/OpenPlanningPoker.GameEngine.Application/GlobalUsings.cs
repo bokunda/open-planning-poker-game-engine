@@ -8,6 +8,7 @@ global using FluentValidation.AspNetCore;
 global using MediatR;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
+global using OpenPlanningPoker.GameEngine.Api.Models.Features.GamePlayer;
 global using OpenPlanningPoker.GameEngine.Domain.Abstractions;
 global using OpenPlanningPoker.GameEngine.Domain.GamePlayer;
 global using OpenPlanningPoker.GameEngine.Domain.Games;

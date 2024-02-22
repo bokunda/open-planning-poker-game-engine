@@ -45,8 +45,7 @@ public class VotesTests : BaseApiTests
         var result = await Sender.Send(query);
 
         // Assert
-        result.TicketId.Should().Be(ticketId);
-        result.Votes.Should().BeEquivalentTo(votes, opt => opt.ExcludingMissingMembers());
+        result.Items.Should().BeEquivalentTo(votes, opt => opt.ExcludingMissingMembers());
     }
 
     [Fact]

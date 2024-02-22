@@ -72,7 +72,7 @@ public class TicketsTests : BaseApiTests
         var result = await Sender.Send(command);
 
         // Assert
-        result.Tickets.Should().BeEquivalentTo(command.Tickets, opt => opt.ExcludingMissingMembers());
+        result.Items.Should().BeEquivalentTo(command.Tickets, opt => opt.ExcludingMissingMembers());
     }
 
     [Fact]

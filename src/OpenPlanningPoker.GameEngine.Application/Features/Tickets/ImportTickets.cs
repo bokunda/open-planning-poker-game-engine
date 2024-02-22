@@ -1,9 +1,11 @@
-﻿namespace OpenPlanningPoker.GameEngine.Application.Features.Tickets;
+﻿using OpenPlanningPoker.GameEngine.Api.Models;
 
-public sealed record ImportTicketsResponse(ICollection<ImportTicketItem> Tickets, int TotalCount);
+namespace OpenPlanningPoker.GameEngine.Application.Features.Tickets;
+
+public sealed record ImportTicketItemResponse(string Name, string Description);
 public sealed record ImportTicketItem(string Name, string Description);
 
-public sealed record ImportTicketsCommand(Guid GameId, ICollection<ImportTicketItem> Tickets) : IRequest<ImportTicketsResponse>;
+public sealed record ImportTicketsCommand(Guid GameId, ICollection<ImportTicketItem> Tickets) : IRequest<ApiCollection<ImportTicketItemResponse>>;
 
 public static class ImportTickets
 {
@@ -21,11 +23,11 @@ public static class ImportTickets
         public MappingProfile()
         {
             CreateMap<ImportTicketsCommand, Ticket>();
-            CreateMap<Ticket, ImportTicketItem>();
+            CreateMap<Ticket, ImportTicketItemResponse>();
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<ImportTicketsCommand, ImportTicketsResponse>
+    public sealed class RequestHandler : IRequestHandler<ImportTicketsCommand, ApiCollection<ImportTicketItemResponse>>
     {
         private readonly ITicketRepository _ticketRepository;
         private readonly IMapper _mapper;
@@ -38,14 +40,14 @@ public static class ImportTickets
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ImportTicketsResponse> Handle(ImportTicketsCommand request, CancellationToken cancellationToken = default)
+        public async Task<ApiCollection<ImportTicketItemResponse>> Handle(ImportTicketsCommand request, CancellationToken cancellationToken = default)
         {
             var tickets = request.Tickets.Select(ticket => Ticket.Create(request.GameId, ticket.Name, ticket.Description));
             _ticketRepository.AddRange(tickets);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            var mappedTickets = _mapper.Map<ICollection<ImportTicketItem>>(tickets);
-            return new ImportTicketsResponse(mappedTickets, mappedTickets.Count);
+            var mappedTickets = _mapper.Map<ICollection<ImportTicketItemResponse>>(tickets);
+            return new ApiCollection<ImportTicketItemResponse>(mappedTickets, mappedTickets.Count);
         }
     }
 }

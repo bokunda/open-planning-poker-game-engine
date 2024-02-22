@@ -27,7 +27,6 @@ global using Serilog;
 
 global using JoinGameResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.GamePlayer.JoinGameResponse;
 global using LeaveGameResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.GamePlayer.LeaveGameResponse;
-global using ListPlayersResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.GamePlayer.ListPlayersResponse;
 global using CreateGameResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Games.CreateGameResponse;
 global using GetGameResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Games.GetGameResponse;
 global using CreateGameSettingsCommandApi = OpenPlanningPoker.GameEngine.Api.Models.Features.GameSettings.CreateGameSettingsCommand;
@@ -39,12 +38,10 @@ global using GetInfoResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Info.G
 global using CreateTicketCommandApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Tickets.CreateTicketCommand;
 global using CreateTicketResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Tickets.CreateTicketResponse;
 global using GetTicketResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Tickets.GetTicketResponse;
-global using GetTicketsResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Tickets.GetTicketsResponse;
-global using ImportTicketsResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Tickets.ImportTicketsResponse;
 global using ImportTicketsCommandApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Tickets.ImportTicketsCommand;
 global using DeleteTicketResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Tickets.DeleteTicketResponse;
-global using GetVotesResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Votes.GetVotesResponse;
 global using CreateVoteResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Votes.CreateVoteResponse;
 global using CreateVoteCommandApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Votes.CreateVoteCommand;
 global using UpdateVoteResponseApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Votes.UpdateVoteResponse;
 global using UpdateVoteCommandApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Votes.UpdateVoteCommand;
+global using ListPlayersPlayerItemApi = OpenPlanningPoker.GameEngine.Api.Models.Features.GamePlayer.ListPlayersItem;
