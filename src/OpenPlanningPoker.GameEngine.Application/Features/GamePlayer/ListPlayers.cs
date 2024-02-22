@@ -1,9 +1,8 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Application.Features.GamePlayer;
 
-public sealed record ListPlayersResponse(Guid GameId, ICollection<ListPlayersPlayerItem> Players, int TotalCount);
-public sealed record ListPlayersPlayerItem(Guid Id, string Name);
+public sealed record ListPlayersItem(Guid Id, string Name);
 
-public sealed record ListPlayersQuery(Guid GameId) : IRequest<ListPlayersResponse>;
+public sealed record ListPlayersQuery(Guid GameId) : IRequest<ApiCollection<ListPlayersItem>>;
 
 public static class ListPlayers
 {
@@ -16,7 +15,7 @@ public static class ListPlayers
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<ListPlayersQuery, ListPlayersResponse>
+    public sealed class RequestHandler : IRequestHandler<ListPlayersQuery, ApiCollection<ListPlayersItem>>
     {
         private readonly IGamePlayerRepository _gamePlayerRepository;
 
@@ -25,12 +24,12 @@ public static class ListPlayers
             _gamePlayerRepository = gamePlayerRepository;
         }
 
-        public async Task<ListPlayersResponse> Handle(ListPlayersQuery request, CancellationToken cancellationToken = default)
+        public async Task<ApiCollection<ListPlayersItem>> Handle(ListPlayersQuery request, CancellationToken cancellationToken = default)
         {
             var gamePlayers = await _gamePlayerRepository.GetByGame(request.GameId, cancellationToken);
 
-            return new ListPlayersResponse(request.GameId,
-                gamePlayers.Select(x => new ListPlayersPlayerItem(x.PlayerId, "TODO")).ToList(), 
+            return new ApiCollection<ListPlayersItem>(
+                gamePlayers.Select(x => new ListPlayersItem(x.PlayerId, "TODO")).ToList(), 
                 gamePlayers.Count);
         }
     }

@@ -1,4 +1,5 @@
-﻿namespace OpenPlanningPoker.GameEngine.Api.Controllers.GamePlayer;
+﻿
+namespace OpenPlanningPoker.GameEngine.Api.Controllers.GamePlayer;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -20,10 +21,10 @@ public class GamePlayerController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{gameId}")]
-    public async Task<ListPlayersResponseApi> Get(Guid gameId, CancellationToken cancellationToken = default)
+    public async Task<ApiCollection<ListPlayersPlayerItemApi>> Get(Guid gameId, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new ListPlayersQuery(gameId), cancellationToken);
-        return _mapper.Map<ListPlayersResponseApi>(result);
+        return _mapper.Map<ApiCollection<ListPlayersPlayerItemApi>>(result);
     }
 
     /// <summary>

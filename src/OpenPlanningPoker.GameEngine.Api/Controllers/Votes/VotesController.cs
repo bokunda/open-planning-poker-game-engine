@@ -1,4 +1,6 @@
-﻿namespace OpenPlanningPoker.GameEngine.Api.Controllers.Votes;
+﻿using GetVotesItemApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Votes.GetVotesItem;
+
+namespace OpenPlanningPoker.GameEngine.Api.Controllers.Votes;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -18,10 +20,10 @@ public class VotesController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{ticketId}")]
-    public async Task<GetVotesResponseApi> Get(Guid ticketId, CancellationToken cancellationToken = default)
+    public async Task<Models.ApiCollection<GetVotesItemApi>> Get(Guid ticketId, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetVotesQuery(ticketId), cancellationToken);
-        return _mapper.Map<GetVotesResponseApi>(result);
+        return _mapper.Map<Models.ApiCollection<GetVotesItemApi>>(result);
     }
 
     /// <summary>

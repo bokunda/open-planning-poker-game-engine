@@ -17,7 +17,7 @@ public interface IGameResource
     /// <summary>
     /// Returns game with participants - {gameId}
     /// </summary>
-    Task<ListPlayersResponse> GetParticipants(Guid gameId, CancellationToken cancellationToken = default);
+    Task<ApiCollection<ListPlayersItem>> GetParticipants(Guid gameId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Join Game - join/{gameId}

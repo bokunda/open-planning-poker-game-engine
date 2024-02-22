@@ -31,10 +31,10 @@ public class TicketsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("game/{gameId}")]
-    public async Task<GetTicketsResponseApi> GetTickets(Guid gameId, CancellationToken cancellationToken = default)
+    public async Task<Models.ApiCollection<GetTicketResponseApi>> GetTickets(Guid gameId, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetTicketsQuery(gameId), cancellationToken);
-        return _mapper.Map<GetTicketsResponseApi>(result);
+        return _mapper.Map<Models.ApiCollection<GetTicketResponseApi>>(result);
     }
 
     /// <summary>
@@ -59,10 +59,10 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ImportTicketsResponseApi> Import([FromBody] ImportTicketsCommandApi command, CancellationToken cancellationToken = default)
+    public async Task<Models.ApiCollection<ImportTicketItemResponse>> Import([FromBody] ImportTicketsCommandApi command, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(_mapper.Map<ImportTicketsCommand>(command), cancellationToken);
-        return _mapper.Map<ImportTicketsResponseApi>(result);
+        return _mapper.Map<Models.ApiCollection<ImportTicketItemResponse>>(result);
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ public class TicketsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ImportTicketsResponseApi> ImportCsv(Guid gameId, IFormFile file, CancellationToken cancellationToken = default)
+    public async Task<Models.ApiCollection<ImportTicketItemResponse>> ImportCsv(Guid gameId, IFormFile file, CancellationToken cancellationToken = default)
     {
         using var reader = new StreamReader(file.OpenReadStream());
         using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
@@ -81,7 +81,7 @@ public class TicketsController : ControllerBase
         var command = new ImportTicketsCommand(gameId, csv.GetRecords<ImportTicketItem>().ToList());
 
         var result = await _sender.Send(command, cancellationToken);
-        return _mapper.Map<ImportTicketsResponseApi>(result);
+        return _mapper.Map<Models.ApiCollection<ImportTicketItemResponse>>(result);
     }
 
     /// <summary>

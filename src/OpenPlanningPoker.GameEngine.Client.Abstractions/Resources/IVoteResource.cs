@@ -6,7 +6,7 @@ public interface IVoteResource
     /// Returns votes for a ticket - {ticketId}
     /// </summary>
     /// <returns></returns>
-    Task<GetVotesResponse> GetTicketVotes(Guid ticketId, CancellationToken cancellationToken = default);
+    Task<ApiCollection<GetVotesItem>> GetTicketVotes(Guid ticketId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Creates a vote

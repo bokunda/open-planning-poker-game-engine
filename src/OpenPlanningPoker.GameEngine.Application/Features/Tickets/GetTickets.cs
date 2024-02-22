@@ -1,8 +1,7 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Application.Features.Tickets;
 
-public sealed record GetTicketsResponse(ICollection<GetTicketsItem> Tickets, int TotalCount);
 public sealed record GetTicketsItem(Guid Id, Guid GameId, string Name, string Description);
-public sealed record GetTicketsQuery(Guid GameId) : IRequest<GetTicketsResponse>;
+public sealed record GetTicketsQuery(Guid GameId) : IRequest<ApiCollection<GetTicketsItem>>;
 
 public static class GetTickets
 {
@@ -18,12 +17,11 @@ public static class GetTickets
     {
         public MappingProfile()
         {
-            CreateMap<Ticket, GetTicketsResponse>();
             CreateMap<Ticket, GetTicketsItem>();
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<GetTicketsQuery, GetTicketsResponse>
+    public sealed class RequestHandler : IRequestHandler<GetTicketsQuery, ApiCollection<GetTicketsItem>>
     {
         private readonly ITicketRepository _ticketRepository;
         private readonly IMapper _mapper;
@@ -34,11 +32,11 @@ public static class GetTickets
             _mapper = mapper;
         }
 
-        public async Task<GetTicketsResponse> Handle(GetTicketsQuery request, CancellationToken cancellationToken = default)
+        public async Task<ApiCollection<GetTicketsItem>> Handle(GetTicketsQuery request, CancellationToken cancellationToken = default)
         {
             var data = await _ticketRepository.GetByGame(request.GameId, cancellationToken);
             var mappedData = _mapper.Map<ICollection<GetTicketsItem>>(data);
-            return new GetTicketsResponse(mappedData, mappedData.Count);
+            return new ApiCollection<GetTicketsItem>(mappedData, mappedData.Count);
         }
     }
 }

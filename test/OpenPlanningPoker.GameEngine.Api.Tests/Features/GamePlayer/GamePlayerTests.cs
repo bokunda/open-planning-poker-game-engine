@@ -28,8 +28,7 @@ public class GamePlayerTests : BaseApiTests
         var result = await Sender.Send(query);
 
         // Assert
-        result.GameId.Should().Be(gameId);
-        result.Players.Count.Should().Be(1);
+        result.Items.Count.Should().Be(1);
     }
 
     [Fact]

@@ -1,8 +1,7 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Application.Features.Votes;
 
-public sealed record GetVotesResponse(Guid TicketId, ICollection<GetVotesVoteItem> Votes, int TotalCount);
-public sealed record GetVotesVoteItem(Guid Id, Guid PlayerId, int Value);
-public sealed record GetVotesQuery(Guid TicketId) : IRequest<GetVotesResponse>;
+public sealed record GetVotesItem(Guid Id, Guid PlayerId, int Value);
+public sealed record GetVotesQuery(Guid TicketId) : IRequest<ApiCollection<GetVotesItem>>;
 
 public static class GetVotes
 {
@@ -18,11 +17,11 @@ public static class GetVotes
     {
         public MappingProfile()
         {
-            CreateMap<Vote, GetVotesVoteItem>();
+            CreateMap<Vote, GetVotesItem>();
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<GetVotesQuery, GetVotesResponse>
+    public sealed class RequestHandler : IRequestHandler<GetVotesQuery, ApiCollection<GetVotesItem>>
     {
         private readonly IVoteRepository _voteRepository;
         private readonly IMapper _mapper;
@@ -33,11 +32,11 @@ public static class GetVotes
             _mapper = mapper;
         }
 
-        public async Task<GetVotesResponse> Handle(GetVotesQuery request, CancellationToken cancellationToken = default)
+        public async Task<ApiCollection<GetVotesItem>> Handle(GetVotesQuery request, CancellationToken cancellationToken = default)
         {
             var result = await _voteRepository.GetByTicket(request.TicketId, cancellationToken);
-            var mappedResult = _mapper.Map<ICollection<GetVotesVoteItem>>(result);
-            return new GetVotesResponse(request.TicketId, mappedResult, mappedResult.Count);
+            var mappedResult = _mapper.Map<ICollection<GetVotesItem>>(result);
+            return new ApiCollection<GetVotesItem>(mappedResult, mappedResult.Count);
         }
     }
 }

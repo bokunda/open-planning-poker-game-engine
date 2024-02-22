@@ -12,12 +12,10 @@ public class TicketMappingProfile : Profile
 
         CreateMap<Models.Features.Tickets.GetTicketResponse, GetTicketResponse>().ReverseMap();
         CreateMap<Models.Features.Tickets.GetTicketQuery, GetTicketQuery>().ReverseMap();
-
-        CreateMap<Models.Features.Tickets.GetTicketsResponse, GetTicketsResponse>().ReverseMap();
+        
         CreateMap<Models.Features.Tickets.GetTicketsItem, GetTicketsItem>().ReverseMap();
         CreateMap<Models.Features.Tickets.GetTicketsQuery, GetTicketsQuery>().ReverseMap();
 
-        CreateMap<Models.Features.Tickets.ImportTicketsResponse, ImportTicketsResponse>().ReverseMap();
         CreateMap<Models.Features.Tickets.ImportTicketItem, ImportTicketItem>().ReverseMap();
         CreateMap<Models.Features.Tickets.ImportTicketsCommand, ImportTicketsCommand>().ReverseMap();
     }

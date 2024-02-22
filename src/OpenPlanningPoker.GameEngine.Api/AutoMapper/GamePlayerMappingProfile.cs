@@ -9,9 +9,8 @@ public class GamePlayerMappingProfile : Profile
 
         CreateMap<Models.Features.GamePlayer.LeaveGameResponse, LeaveGameResponse>().ReverseMap();
         CreateMap<Models.Features.GamePlayer.LeaveGameCommand, LeaveGameCommand>().ReverseMap();
-
-        CreateMap<Models.Features.GamePlayer.ListPlayersResponse, ListPlayersResponse>().ReverseMap();
-        CreateMap<Models.Features.GamePlayer.ListPlayersPlayerItem, ListPlayersPlayerItem>().ReverseMap();
+        
+        CreateMap<Models.Features.GamePlayer.ListPlayersItem, ListPlayersItem>().ReverseMap();
         CreateMap<Models.Features.GamePlayer.ListPlayersQuery, ListPlayersQuery>().ReverseMap();
     }
 }

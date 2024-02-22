@@ -1,4 +1,6 @@
-﻿namespace OpenPlanningPoker.GameEngine.Client.Api.Resources;
+﻿using OpenPlanningPoker.GameEngine.Api.Models;
+
+namespace OpenPlanningPoker.GameEngine.Client.Api.Resources;
 
 public class TicketResource : ITicketResource
 {
@@ -16,10 +18,10 @@ public class TicketResource : ITicketResource
         return (await response.Content.ReadFromJsonAsync<GetTicketResponse>(cancellationToken))!;
     }
 
-    public async Task<GetTicketsResponse> GetTickets(Guid gameId, CancellationToken cancellationToken = default)
+    public async Task<ApiCollection<GetTicketsItem>> GetTickets(Guid gameId, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.GetAsync($"{ControllerName}/game/{gameId}", cancellationToken);
-        return (await response.Content.ReadFromJsonAsync<GetTicketsResponse>(cancellationToken))!;
+        return (await response.Content.ReadFromJsonAsync<ApiCollection<GetTicketsItem>>(cancellationToken))!;
     }
 
     public async Task<CreateTicketResponse> CreateTicket(CreateTicketCommand data, CancellationToken cancellationToken = default)
@@ -28,16 +30,16 @@ public class TicketResource : ITicketResource
         return (await response.Content.ReadFromJsonAsync<CreateTicketResponse>(cancellationToken))!;
     }
 
-    public async Task<ImportTicketsResponse> ImportTicket(ImportTicketsCommand data, CancellationToken cancellationToken = default)
+    public async Task<ApiCollection<ImportTicketItem>> ImportTicket(ImportTicketsCommand data, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.PostAsJsonAsync($"{ControllerName}/import", data, cancellationToken);
-        return (await response.Content.ReadFromJsonAsync<ImportTicketsResponse>(cancellationToken))!;
+        return (await response.Content.ReadFromJsonAsync<ApiCollection<ImportTicketItem>>(cancellationToken))!;
     }
 
-    public async Task<ImportTicketsResponse> ImportTicketsCsv(Guid gameId, IFormFile file, CancellationToken cancellationToken = default)
+    public async Task<ApiCollection<ImportTicketItem>> ImportTicketsCsv(Guid gameId, IFormFile file, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.PostAsJsonAsync($"{ControllerName}/import/csv/{gameId}", file, cancellationToken);
-        return (await response.Content.ReadFromJsonAsync<ImportTicketsResponse>(cancellationToken))!;
+        return (await response.Content.ReadFromJsonAsync<ApiCollection<ImportTicketItem>>(cancellationToken))!;
     }
 
     public async Task<DeleteTicketResponse> DeleteTicket(Guid id, CancellationToken cancellationToken = default)

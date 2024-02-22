@@ -1,4 +1,6 @@
-﻿namespace OpenPlanningPoker.GameEngine.Client.Api.Resources;
+﻿using OpenPlanningPoker.GameEngine.Api.Models;
+
+namespace OpenPlanningPoker.GameEngine.Client.Api.Resources;
 
 public class GameResource : IGameResource
 {
@@ -24,10 +26,10 @@ public class GameResource : IGameResource
         return (await response.Content.ReadFromJsonAsync<CreateGameResponse>(cancellationToken))!;
     }
 
-    public async Task<ListPlayersResponse> GetParticipants(Guid gameId, CancellationToken cancellationToken = default)
+    public async Task<ApiCollection<ListPlayersItem>> GetParticipants(Guid gameId, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.GetAsync($"{ControllerNameGamePlayer}/{gameId}", cancellationToken);
-        return (await response.Content.ReadFromJsonAsync<ListPlayersResponse>(cancellationToken))!;
+        return (await response.Content.ReadFromJsonAsync<ApiCollection<ListPlayersItem>>(cancellationToken))!;
     }
 
     /// <summary>

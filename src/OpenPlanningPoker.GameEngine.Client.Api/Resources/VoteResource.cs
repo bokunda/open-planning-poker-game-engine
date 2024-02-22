@@ -1,4 +1,6 @@
-﻿namespace OpenPlanningPoker.GameEngine.Client.Api.Resources;
+﻿using OpenPlanningPoker.GameEngine.Api.Models;
+
+namespace OpenPlanningPoker.GameEngine.Client.Api.Resources;
 
 public class VoteResource : IVoteResource
 {
@@ -10,10 +12,10 @@ public class VoteResource : IVoteResource
         _httpClient = httpClient;
     }
 
-    public async Task<GetVotesResponse> GetTicketVotes(Guid ticketId, CancellationToken cancellationToken = default)
+    public async Task<ApiCollection<GetVotesItem>> GetTicketVotes(Guid ticketId, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.GetAsync($"{ControllerName}/{ticketId}", cancellationToken);
-        return (await response.Content.ReadFromJsonAsync<GetVotesResponse>(cancellationToken))!;
+        return (await response.Content.ReadFromJsonAsync<ApiCollection<GetVotesItem>>(cancellationToken))!;
     }
 
     public async Task<CreateVoteResponse> CreateVote(CreateVoteCommand data, CancellationToken cancellationToken = default)
