@@ -1,6 +1,4 @@
-﻿using OpenPlanningPoker.GameEngine.Api.Models;
-
-namespace OpenPlanningPoker.GameEngine.Application.Features.Tickets;
+﻿namespace OpenPlanningPoker.GameEngine.Application.Features.Tickets;
 
 public sealed record ImportTicketItemResponse(string Name, string Description);
 public sealed record ImportTicketItem(string Name, string Description);
