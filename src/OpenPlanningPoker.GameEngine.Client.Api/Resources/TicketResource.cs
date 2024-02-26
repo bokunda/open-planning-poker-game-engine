@@ -42,6 +42,12 @@ public class TicketResource : ITicketResource
         return (await response.Content.ReadFromJsonAsync<ApiCollection<ImportTicketItem>>(cancellationToken))!;
     }
 
+    public async Task<UpdateTicketResponse> UpdateTicket(UpdateTicketCommand data, CancellationToken cancellationToken = default)
+    {
+        var response = await _httpClient.PutAsJsonAsync($"{ControllerName}", data, cancellationToken);
+        return (await response.Content.ReadFromJsonAsync<UpdateTicketResponse>(cancellationToken))!;
+    }
+
     public async Task<DeleteTicketResponse> DeleteTicket(Guid id, CancellationToken cancellationToken = default)
     {
         var response = await _httpClient.DeleteAsync($"{ControllerName}/{id}", cancellationToken);
