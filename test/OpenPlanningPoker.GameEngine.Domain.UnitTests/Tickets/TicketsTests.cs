@@ -20,4 +20,26 @@ public class TicketsTests : BaseTest
         ticket.Description.Should().Be(description);
     }
 
+    [Fact]
+    public void UpdateTicket_Should_Raise_CreateTicketDomainEvent()
+    {
+        // Arrange
+        var gameId = Guid.Parse("33a02402-abdc-484c-ae12-e908f99d7889");
+        const string name = "Test Name";
+        const string description = "Description Test";
+
+        const string nameUpdated = "Test Name Updated";
+        const string descriptionUpdated = "Description Test Updated";
+
+        // Act
+        var ticket = Ticket.Create(gameId, name, description);
+        ticket.Update(nameUpdated, descriptionUpdated);
+
+        // Assert
+        AssertDomainEventWasPublished<UpdateTicketDomainEvent>(ticket);
+        ticket.GameId.Should().Be(gameId);
+        ticket.Name.Should().Be(nameUpdated);
+        ticket.Description.Should().Be(descriptionUpdated);
+    }
+
 }

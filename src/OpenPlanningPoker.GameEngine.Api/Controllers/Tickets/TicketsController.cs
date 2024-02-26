@@ -85,6 +85,20 @@ public class TicketsController : ControllerBase
     }
 
     /// <summary>
+    /// Update an existing ticket
+    /// </summary>
+    /// <returns></returns>
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<UpdateTicketResponse> Update([FromBody] UpdateTicketCommand command, CancellationToken cancellationToken = default)
+    {
+        var result = await _sender.Send(command, cancellationToken);
+        return _mapper.Map<UpdateTicketResponse>(result);
+    }
+
+    /// <summary>
     /// Delete a Ticket
     /// </summary>
     /// <returns></returns>

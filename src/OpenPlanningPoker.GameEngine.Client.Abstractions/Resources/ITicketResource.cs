@@ -33,6 +33,12 @@ public interface ITicketResource
     Task<ApiCollection<ImportTicketItem>> ImportTicketsCsv(Guid gameId, IFormFile file, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Update an existing ticket
+    /// </summary>
+    /// <returns></returns>
+    Task<UpdateTicketResponse> UpdateTicket(UpdateTicketCommand data, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Delete a Ticket - {id}
     /// </summary>
     /// <returns></returns>

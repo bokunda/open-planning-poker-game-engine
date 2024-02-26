@@ -2,9 +2,9 @@
 
 public sealed class Ticket : Entity<Guid>
 {
-    public Guid GameId { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public Guid GameId { get; private set; }
+    public string Name { get; private set; }
+    public string Description { get; private set; }
 
     public ICollection<Vote>? Votes;
 
@@ -22,5 +22,12 @@ public sealed class Ticket : Entity<Guid>
         var ticket = new Ticket(gameId, name, description);
         ticket.RaiseDomainEvent(new CreateTicketDomainEvent(ticket.Id));
         return ticket;
+    }
+
+    public void Update(string name, string description)
+    {
+        Name = name;
+        Description = description;
+        RaiseDomainEvent(new UpdateTicketDomainEvent(Id));
     }
 }

@@ -58,6 +58,22 @@ public class TicketsTests : BaseApiTests
     }
 
     [Fact]
+    public async Task UpdateTicket_Success()
+    {
+        // Arrange
+        var createTicketCommand = new CreateTicketCommand(FirstGameId, "UPDATE_Ticket", "TEST");
+        var createTicketResult = await Sender.Send(createTicketCommand);
+
+        var updateTicketCommand = new UpdateTicketCommand(createTicketResult.Id, "UPDATE_Ticket_v2", "Test_v2");
+        
+        // Act
+        var updateGameResult = Sender.Send(updateTicketCommand);
+
+        // Assert
+        updateGameResult.Should().BeEquivalentTo(updateTicketCommand, opt => opt.ExcludingMissingMembers());
+    }
+
+    [Fact]
     public async Task ImportTicket_Success()
     {
         // Arrange
