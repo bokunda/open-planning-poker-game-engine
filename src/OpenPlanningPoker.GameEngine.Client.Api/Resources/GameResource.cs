@@ -1,6 +1,4 @@
-﻿using OpenPlanningPoker.GameEngine.Api.Models;
-
-namespace OpenPlanningPoker.GameEngine.Client.Api.Resources;
+﻿namespace OpenPlanningPoker.GameEngine.Client.Api.Resources;
 
 public class GameResource : IGameResource
 {

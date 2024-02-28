@@ -3,6 +3,7 @@
 global using System.Net.Http.Json;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.Extensions.DependencyInjection;
+global using OpenPlanningPoker.GameEngine.Api.Models;
 global using OpenPlanningPoker.GameEngine.Api.Models.Features.GamePlayer;
 global using OpenPlanningPoker.GameEngine.Api.Models.Features.Games;
 global using OpenPlanningPoker.GameEngine.Api.Models.Features.GameSettings;

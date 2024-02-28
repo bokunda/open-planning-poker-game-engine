@@ -7,4 +7,6 @@ global using OpenPlanningPoker.GameEngine.Domain.Games.Events;
 global using OpenPlanningPoker.GameEngine.Domain.Tickets;
 global using OpenPlanningPoker.GameEngine.Domain.Tickets.Events;
 global using OpenPlanningPoker.GameEngine.Domain.UnitTests.Infrastructure;
+global using OpenPlanningPoker.GameEngine.Domain.Votes;
+global using OpenPlanningPoker.GameEngine.Domain.Votes.Events;
 global using Xunit;

@@ -1,7 +1,4 @@
-﻿using OpenPlanningPoker.GameEngine.Domain.Votes;
-using OpenPlanningPoker.GameEngine.Domain.Votes.Events;
-
-namespace OpenPlanningPoker.GameEngine.Domain.UnitTests.Votes;
+﻿namespace OpenPlanningPoker.GameEngine.Domain.UnitTests.Votes;
 
 public class VotesTests : BaseTest
 {
