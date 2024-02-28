@@ -3,7 +3,7 @@
 public class VoteResource : IVoteResource
 {
     private readonly HttpClient _httpClient;
-    private const string ControllerName = "vote";
+    private const string ControllerName = "votes";
 
     public VoteResource(HttpClient httpClient)
     {
