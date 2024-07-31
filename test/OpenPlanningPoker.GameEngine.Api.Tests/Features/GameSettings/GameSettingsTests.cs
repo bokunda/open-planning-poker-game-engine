@@ -1,11 +1,7 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Api.Tests.Features.GameSettings;
 
-public class GameSettingsTests : BaseApiTests
+public class GameSettingsTests(ApiTestWebAppFactory factory) : BaseApiTests(factory)
 {
-    public GameSettingsTests(ApiTestWebAppFactory factory) : base(factory)
-    {
-    }
-
     [Fact]
     public async Task GetGameSettings_Valid()
     {

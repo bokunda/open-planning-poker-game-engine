@@ -25,26 +25,16 @@ public static class ImportTickets
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<ImportTicketsCommand, ApiCollection<ImportTicketItemResponse>>
+    public sealed class RequestHandler(ITicketRepository ticketRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        : IRequestHandler<ImportTicketsCommand, ApiCollection<ImportTicketItemResponse>>
     {
-        private readonly ITicketRepository _ticketRepository;
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public RequestHandler(ITicketRepository ticketRepository, IMapper mapper, IUnitOfWork unitOfWork)
-        {
-            _ticketRepository = ticketRepository;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-        }
-
         public async Task<ApiCollection<ImportTicketItemResponse>> Handle(ImportTicketsCommand request, CancellationToken cancellationToken = default)
         {
             var tickets = request.Tickets.Select(ticket => Ticket.Create(request.GameId, ticket.Name, ticket.Description));
-            _ticketRepository.AddRange(tickets);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            ticketRepository.AddRange(tickets);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            var mappedTickets = _mapper.Map<ICollection<ImportTicketItemResponse>>(tickets);
+            var mappedTickets = mapper.Map<ICollection<ImportTicketItemResponse>>(tickets);
             return new ApiCollection<ImportTicketItemResponse>(mappedTickets, mappedTickets.Count);
         }
     }

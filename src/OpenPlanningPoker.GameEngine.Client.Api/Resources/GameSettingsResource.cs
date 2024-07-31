@@ -1,30 +1,24 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Client.Api.Resources;
 
-public class GameSettingsResource : IGameSettingsResource
+public class GameSettingsResource(HttpClient httpClient) : IGameSettingsResource
 {
-    private readonly HttpClient _httpClient;
     private const string ControllerName = "gamesettings";
-
-    public GameSettingsResource(HttpClient httpClient)
-    {
-        _httpClient = httpClient;
-    }
 
     public async Task<GetGameSettingsResponse> GetGameSettings(Guid gameId, CancellationToken cancellationToken = default)
     {
-        var response = await _httpClient.GetAsync($"{ControllerName}/{gameId}", cancellationToken);
+        var response = await httpClient.GetAsync($"{ControllerName}/{gameId}", cancellationToken);
         return (await response.Content.ReadFromJsonAsync<GetGameSettingsResponse>(cancellationToken))!;
     }
 
     public async Task<CreateGameSettingsResponse> CreateGameSettings(CreateGameSettingsCommand command, CancellationToken cancellationToken = default)
     {
-        var response = await _httpClient.PostAsJsonAsync($"{ControllerName}", command, cancellationToken);
+        var response = await httpClient.PostAsJsonAsync($"{ControllerName}", command, cancellationToken);
         return (await response.Content.ReadFromJsonAsync<CreateGameSettingsResponse>(cancellationToken))!;
     }
 
     public async Task<UpdateGameSettingsResponse> UpdateGameSettings(UpdateGameSettingsCommand command, CancellationToken cancellationToken = default)
     {
-        var response = await _httpClient.PutAsJsonAsync($"{ControllerName}", command, cancellationToken);
+        var response = await httpClient.PutAsJsonAsync($"{ControllerName}", command, cancellationToken);
         return (await response.Content.ReadFromJsonAsync<UpdateGameSettingsResponse>(cancellationToken))!;
     }
 }

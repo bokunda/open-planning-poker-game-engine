@@ -21,21 +21,13 @@ public static class GetVotes
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<GetVotesQuery, ApiCollection<GetVotesItem>>
+    public sealed class RequestHandler(IVoteRepository voteRepository, IMapper mapper)
+        : IRequestHandler<GetVotesQuery, ApiCollection<GetVotesItem>>
     {
-        private readonly IVoteRepository _voteRepository;
-        private readonly IMapper _mapper;
-
-        public RequestHandler(IVoteRepository voteRepository, IMapper mapper)
-        {
-            _voteRepository = voteRepository;
-            _mapper = mapper;
-        }
-
         public async Task<ApiCollection<GetVotesItem>> Handle(GetVotesQuery request, CancellationToken cancellationToken = default)
         {
-            var result = await _voteRepository.GetByTicket(request.TicketId, cancellationToken);
-            var mappedResult = _mapper.Map<ICollection<GetVotesItem>>(result);
+            var result = await voteRepository.GetByTicket(request.TicketId, cancellationToken);
+            var mappedResult = mapper.Map<ICollection<GetVotesItem>>(result);
             return new ApiCollection<GetVotesItem>(mappedResult, mappedResult.Count);
         }
     }

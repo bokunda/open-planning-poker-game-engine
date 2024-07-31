@@ -1,13 +1,7 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Api.Tests.Features.GamePlayer;
 
-public class GamePlayerTests : BaseApiTests
+public class GamePlayerTests(ApiTestWebAppFactory factory) : BaseApiTests(factory)
 {
-
-
-    public GamePlayerTests(ApiTestWebAppFactory factory) : base(factory)
-    {
-    }
-
     [Fact]
     public async Task ListPlayers_Valid()
     {

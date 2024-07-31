@@ -28,31 +28,20 @@ public static class CreateVote
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<CreateVoteCommand, CreateVoteResponse>
+    public sealed class RequestHandler(
+        IVoteRepository voteRepository,
+        ICurrentUserProvider currentUserProvider,
+        IMapper mapper,
+        IUnitOfWork unitOfWork)
+        : IRequestHandler<CreateVoteCommand, CreateVoteResponse>
     {
-        private readonly IVoteRepository _voteRepository;
-        private readonly ICurrentUserProvider _currentUserProvider;
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public RequestHandler(IVoteRepository voteRepository,
-            ICurrentUserProvider currentUserProvider, 
-            IMapper mapper, 
-            IUnitOfWork unitOfWork)
-        {
-            _voteRepository = voteRepository;
-            _currentUserProvider = currentUserProvider;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-        }
-
         public async Task<CreateVoteResponse> Handle(CreateVoteCommand request, CancellationToken cancellationToken = default)
         {
-            var vote = Vote.Create(_currentUserProvider.CustomerId, request.TicketId, request.Value);
-            _voteRepository.Add(vote);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            var vote = Vote.Create(currentUserProvider.CustomerId, request.TicketId, request.Value);
+            voteRepository.Add(vote);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<CreateVoteResponse>(vote);
+            return mapper.Map<CreateVoteResponse>(vote);
         }
     }
 }

@@ -18,22 +18,14 @@ public static class DeleteGame
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<DeleteGameCommand, DeleteGameResponse>
+    public sealed class RequestHandler(IGameRepository gameRepository, IUnitOfWork unitOfWork)
+        : IRequestHandler<DeleteGameCommand, DeleteGameResponse>
     {
-        private readonly IGameRepository _gameRepository;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public RequestHandler(IGameRepository gameRepository, IUnitOfWork unitOfWork)
-        {
-            _gameRepository = gameRepository;
-            _unitOfWork = unitOfWork;
-        }
-
         public async Task<DeleteGameResponse> Handle(DeleteGameCommand request, CancellationToken cancellationToken = default)
         {
-            var game = (await _gameRepository.GetByIdAsync(request.GameId, cancellationToken))!;
-            _gameRepository.Delete(game);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            var game = (await gameRepository.GetByIdAsync(request.GameId, cancellationToken))!;
+            gameRepository.Delete(game);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
             return new DeleteGameResponse();
         }

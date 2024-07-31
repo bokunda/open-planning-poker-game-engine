@@ -1,17 +1,12 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Api.Tests.Features.Tickets;
 
-public class TicketsTests : BaseApiTests
+public class TicketsTests(ApiTestWebAppFactory factory) : BaseApiTests(factory)
 {
     private readonly Game _firstGame = (Game.Create("GAME_1", "DESC_1").WithId(FirstGameId) as Game)!;
     private static readonly Guid FirstGameId = new("8ce78ab1-b52d-4650-9c57-568dc451022a");
 
     private readonly Ticket _firstTicket = (Ticket.Create(FirstGameId, "Ticket_1", "DESC_1").WithId(FirstTicketId) as Ticket)!;
     private static readonly Guid FirstTicketId = new ("c8fb7962-6e49-42ed-85f0-67b30bd48901");
-
-    public TicketsTests(ApiTestWebAppFactory factory) : base(factory)
-    {
-
-    }
 
     [Fact]
     public async Task GetTicket_Valid()

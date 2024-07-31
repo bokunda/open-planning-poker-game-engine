@@ -1,11 +1,8 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Infrastructure.Repositories;
 
-public sealed class GamePlayerRepository : Repository<GamePlayer, Guid>, IGamePlayerRepository
+public sealed class GamePlayerRepository(OpenPlanningPokerGameEngineDbContext dbContext)
+    : Repository<GamePlayer, Guid>(dbContext), IGamePlayerRepository
 {
-    public GamePlayerRepository(OpenPlanningPokerGameEngineDbContext dbContext) : base(dbContext)
-    {
-    }
-
     public async Task<GamePlayer> GetByGameAndPlayer(Guid gameId, Guid playerId, CancellationToken cancellationToken = default)
         => await DbContext.Set<GamePlayer>()
             .QueryByGame(gameId)

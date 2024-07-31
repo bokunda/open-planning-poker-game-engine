@@ -28,29 +28,20 @@ public static class UpdateVote
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<UpdateVoteCommand, UpdateVoteResponse>
+    public sealed class RequestHandler(
+        IVoteRepository voteRepository,
+        IMapper mapper,
+        IUnitOfWork unitOfWork)
+        : IRequestHandler<UpdateVoteCommand, UpdateVoteResponse>
     {
-        private readonly IVoteRepository _voteRepository;
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public RequestHandler(IVoteRepository voteRepository,
-            IMapper mapper,
-            IUnitOfWork unitOfWork)
-        {
-            _voteRepository = voteRepository;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-        }
-
         public async Task<UpdateVoteResponse> Handle(UpdateVoteCommand request, CancellationToken cancellationToken = default)
         {
-            var vote = await _voteRepository.GetByIdAsync(request.Id, cancellationToken);
+            var vote = await voteRepository.GetByIdAsync(request.Id, cancellationToken);
             vote!.Update(request.Value);
-            _voteRepository.Update(vote);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            voteRepository.Update(vote);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<UpdateVoteResponse>(vote);
+            return mapper.Map<UpdateVoteResponse>(vote);
         }
     }
 }

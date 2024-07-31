@@ -2,17 +2,8 @@
 
 [Route("api/[controller]")]
 [ApiController]
-public class GameSettingsController : ControllerBase
+public class GameSettingsController(ISender sender, IMapper mapper) : ControllerBase
 {
-    private readonly ISender _sender;
-    private readonly IMapper _mapper;
-
-    public GameSettingsController(ISender sender, IMapper mapper)
-    {
-        _sender = sender;
-        _mapper = mapper;
-    }
-
     /// <summary>
     /// Returns game settings details
     /// </summary>
@@ -20,8 +11,8 @@ public class GameSettingsController : ControllerBase
     [HttpGet("{gameId}")]
     public async Task<GetGameSettingsResponseApi> Get(Guid gameId, CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(new GetGameSettingsQuery(gameId), cancellationToken);
-        return _mapper.Map<GetGameSettingsResponseApi>(result);
+        var result = await sender.Send(new GetGameSettingsQuery(gameId), cancellationToken);
+        return mapper.Map<GetGameSettingsResponseApi>(result);
     }
 
     /// <summary>
@@ -34,8 +25,8 @@ public class GameSettingsController : ControllerBase
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<CreateGameSettingsResponseApi> Post([FromBody] CreateGameSettingsCommandApi command, CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(_mapper.Map<CreateGameSettingsCommand>(command), cancellationToken);
-        return _mapper.Map<CreateGameSettingsResponseApi>(result);
+        var result = await sender.Send(mapper.Map<CreateGameSettingsCommand>(command), cancellationToken);
+        return mapper.Map<CreateGameSettingsResponseApi>(result);
     }
 
     /// <summary>
@@ -48,7 +39,7 @@ public class GameSettingsController : ControllerBase
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<UpdateGameSettingsResponseApi> Put([FromBody] UpdateGameSettingsCommandApi command, CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(_mapper.Map<UpdateGameSettingsCommand>(command), cancellationToken);
-        return _mapper.Map<UpdateGameSettingsResponseApi>(result);
+        var result = await sender.Send(mapper.Map<UpdateGameSettingsCommand>(command), cancellationToken);
+        return mapper.Map<UpdateGameSettingsResponseApi>(result);
     }
 }

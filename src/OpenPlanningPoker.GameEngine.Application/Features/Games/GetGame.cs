@@ -21,21 +21,13 @@ public static class GetGame
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<GetGameQuery, GetGameResponse>
+    public sealed class RequestHandler(IGameRepository gameRepository, IMapper mapper)
+        : IRequestHandler<GetGameQuery, GetGameResponse>
     {
-        private readonly IGameRepository _gameRepository;
-        private readonly IMapper _mapper;
-
-        public RequestHandler(IGameRepository gameRepository, IMapper mapper)
-        {
-            _gameRepository = gameRepository;
-            _mapper = mapper;
-        }
-
         public async Task<GetGameResponse> Handle(GetGameQuery request, CancellationToken cancellationToken = default)
         {
-            var data = await _gameRepository.GetByIdAsync(request.GameId, cancellationToken);
-            return _mapper.Map<GetGameResponse>(data);
+            var data = await gameRepository.GetByIdAsync(request.GameId, cancellationToken);
+            return mapper.Map<GetGameResponse>(data);
         }
     }
 }

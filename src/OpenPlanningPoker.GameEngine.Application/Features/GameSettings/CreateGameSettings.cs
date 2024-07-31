@@ -30,26 +30,19 @@ public static class CreateGameSettings
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<CreateGameSettingsCommand, CreateGameSettingsResponse>
+    public sealed class RequestHandler(
+        IGameSettingsRepository gameSettingsRepository,
+        IMapper mapper,
+        IUnitOfWork unitOfWork)
+        : IRequestHandler<CreateGameSettingsCommand, CreateGameSettingsResponse>
     {
-        private readonly IGameSettingsRepository _gameSettingsRepository;
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public RequestHandler(IGameSettingsRepository gameSettingsRepository, IMapper mapper, IUnitOfWork unitOfWork)
-        {
-            _gameSettingsRepository = gameSettingsRepository;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-        }
-
         public async Task<CreateGameSettingsResponse> Handle(CreateGameSettingsCommand request, CancellationToken cancellationToken = default)
         {
             var game = Domain.GameSettings.GameSettings.Create(request.GameId, request.VotingTime, request.IsBreakAllowed);
-            _gameSettingsRepository.Add(game);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            gameSettingsRepository.Add(game);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<CreateGameSettingsResponse>(game);
+            return mapper.Map<CreateGameSettingsResponse>(game);
         }
     }
 }

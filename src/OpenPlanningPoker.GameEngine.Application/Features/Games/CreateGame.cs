@@ -28,27 +28,17 @@ public static class CreateGame
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<CreateGameCommand, CreateGameResponse>
+    public sealed class RequestHandler(IGameRepository gameRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        : IRequestHandler<CreateGameCommand, CreateGameResponse>
     {
-        private readonly IGameRepository _gameRepository;
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public RequestHandler(IGameRepository gameRepository, IMapper mapper, IUnitOfWork unitOfWork)
-        {
-            _gameRepository = gameRepository;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-        }
-
         public async Task<CreateGameResponse> Handle(CreateGameCommand request, CancellationToken cancellationToken = default)
         {
             // Create a game
             var game = Game.Create(request.Name, request.Description);
-            _gameRepository.Add(game);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            gameRepository.Add(game);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<CreateGameResponse>(game);
+            return mapper.Map<CreateGameResponse>(game);
         }
     }
 }
