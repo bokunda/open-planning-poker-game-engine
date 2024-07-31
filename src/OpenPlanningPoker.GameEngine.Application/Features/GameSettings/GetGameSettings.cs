@@ -21,21 +21,13 @@ public static class GetGameSettings
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<GetGameSettingsQuery, GetGameSettingsResponse>
+    public sealed class RequestHandler(IGameSettingsRepository gameSettingsRepository, IMapper mapper)
+        : IRequestHandler<GetGameSettingsQuery, GetGameSettingsResponse>
     {
-        private readonly IGameSettingsRepository _gameSettingsRepository;
-        private readonly IMapper _mapper;
-
-        public RequestHandler(IGameSettingsRepository gameSettingsRepository, IMapper mapper)
-        {
-            _gameSettingsRepository = gameSettingsRepository;
-            _mapper = mapper;
-        }
-
         public async Task<GetGameSettingsResponse> Handle(GetGameSettingsQuery request, CancellationToken cancellationToken = default)
         {
-            var data = await _gameSettingsRepository.GetByGame(request.GameId, cancellationToken);
-            return _mapper.Map<GetGameSettingsResponse>(data);
+            var data = await gameSettingsRepository.GetByGame(request.GameId, cancellationToken);
+            return mapper.Map<GetGameSettingsResponse>(data);
         }
     }
 }

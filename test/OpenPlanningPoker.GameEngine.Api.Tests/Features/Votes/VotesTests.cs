@@ -3,14 +3,8 @@ using OpenPlanningPoker.GameEngine.Domain.Votes;
 
 namespace OpenPlanningPoker.GameEngine.Api.Tests.Features.Votes;
 
-public class VotesTests : BaseApiTests
+public class VotesTests(ApiTestWebAppFactory factory) : BaseApiTests(factory)
 {
-
-
-    public VotesTests(ApiTestWebAppFactory factory) : base(factory)
-    {
-    }
-
     [Fact]
     public async Task GetVotes_Valid()
     {

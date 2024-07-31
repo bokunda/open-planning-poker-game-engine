@@ -1,23 +1,12 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Infrastructure;
 
-public sealed class OpenPlanningPokerGameEngineDbContext : DbContext, IUnitOfWork
+public sealed class OpenPlanningPokerGameEngineDbContext(
+    DbContextOptions options,
+    ICurrentUserProvider currentUserProvider,
+    IDateTimeProvider dateTimeProvider,
+    IPublisher publisher)
+    : DbContext(options), IUnitOfWork
 {
-    private readonly IPublisher _publisher;
-    private readonly ICurrentUserProvider _currentUserProvider;
-    private readonly IDateTimeProvider _dateTimeProvider;
-
-    public OpenPlanningPokerGameEngineDbContext(
-        DbContextOptions options,
-        ICurrentUserProvider currentUserProvider,
-        IDateTimeProvider dateTimeProvider, 
-        IPublisher publisher)
-        : base(options)
-    {
-        _currentUserProvider = currentUserProvider;
-        _dateTimeProvider = dateTimeProvider;
-        _publisher = publisher;
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(OpenPlanningPokerGameEngineDbContext).Assembly);
@@ -51,7 +40,7 @@ public sealed class OpenPlanningPokerGameEngineDbContext : DbContext, IUnitOfWor
 
     private void SetCreateOnUpdateOn()
     {
-        var utcNow = _dateTimeProvider.UtcNow;
+        var utcNow = dateTimeProvider.UtcNow;
         var entries = ChangeTracker
             .Entries()
             .Where(e => e.Entity is IEntityHasCreated && e.State is EntityState.Added or EntityState.Modified);
@@ -60,7 +49,7 @@ public sealed class OpenPlanningPokerGameEngineDbContext : DbContext, IUnitOfWor
         {
             if (entityEntry.State == EntityState.Added)
             {
-                ((IEntityHasCreated)entityEntry.Entity).SetCreated(utcNow, _currentUserProvider.CustomerId);
+                ((IEntityHasCreated)entityEntry.Entity).SetCreated(utcNow, currentUserProvider.CustomerId);
             }
         }
     }
@@ -83,7 +72,7 @@ public sealed class OpenPlanningPokerGameEngineDbContext : DbContext, IUnitOfWor
 
         foreach (var domainEvent in domainEvents)
         {
-            await _publisher.Publish(domainEvent);
+            await publisher.Publish(domainEvent);
         }
     }
 }

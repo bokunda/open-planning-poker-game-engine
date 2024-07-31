@@ -26,22 +26,14 @@ public static class LeaveGame
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<LeaveGameCommand, LeaveGameResponse>
+    public sealed class RequestHandler(IGamePlayerRepository gamePlayerRepository, IUnitOfWork unitOfWork)
+        : IRequestHandler<LeaveGameCommand, LeaveGameResponse>
     {
-        private readonly IGamePlayerRepository _gamePlayerRepository;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public RequestHandler(IGamePlayerRepository gamePlayerRepository, IUnitOfWork unitOfWork)
-        {
-            _gamePlayerRepository = gamePlayerRepository;
-            _unitOfWork = unitOfWork;
-        }
-
         public async Task<LeaveGameResponse> Handle(LeaveGameCommand request, CancellationToken cancellationToken = default)
         {
-            var result = await _gamePlayerRepository.GetByGameAndPlayer(request.GameId, request.UserId, cancellationToken);
-            _gamePlayerRepository.Delete(result);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            var result = await gamePlayerRepository.GetByGameAndPlayer(request.GameId, request.UserId, cancellationToken);
+            gamePlayerRepository.Delete(result);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
             return new LeaveGameResponse();
         }

@@ -26,22 +26,14 @@ public static class JoinGame
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<JoinGameCommand, JoinGameResponse>
+    public sealed class RequestHandler(IGamePlayerRepository gamePlayerRepository, IUnitOfWork unitOfWork)
+        : IRequestHandler<JoinGameCommand, JoinGameResponse>
     {
-        private readonly IGamePlayerRepository _gamePlayerRepository;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public RequestHandler(IGamePlayerRepository gamePlayerRepository, IUnitOfWork unitOfWork)
-        {
-            _gamePlayerRepository = gamePlayerRepository;
-            _unitOfWork = unitOfWork;
-        }
-
         public async Task<JoinGameResponse> Handle(JoinGameCommand request, CancellationToken cancellationToken = default)
         {
             var gamePlayer = Domain.GamePlayer.GamePlayer.Create(request.GameId, request.UserId);
-            _gamePlayerRepository.Add(gamePlayer);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            gamePlayerRepository.Add(gamePlayer);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
             return new JoinGameResponse();
         }

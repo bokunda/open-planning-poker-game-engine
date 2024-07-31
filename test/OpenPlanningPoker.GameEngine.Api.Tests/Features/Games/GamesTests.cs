@@ -1,13 +1,9 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Api.Tests.Features.Games;
 
-public class GamesTests : BaseApiTests
+public class GamesTests(ApiTestWebAppFactory factory) : BaseApiTests(factory)
 {
     private readonly Game _firstGame = (Game.Create("GAME_1", "DESC_1").WithId(FirstGameId) as Game)!;
     private static readonly Guid FirstGameId = new ("e6652ae3-1715-4865-ac00-4d73fef4cb3c");
-
-    public GamesTests(ApiTestWebAppFactory factory) : base(factory)
-    {
-    }
 
     [Fact]
     public async Task GetGame_Valid()

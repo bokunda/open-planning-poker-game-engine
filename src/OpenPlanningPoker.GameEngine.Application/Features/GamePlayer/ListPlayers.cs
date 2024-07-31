@@ -15,18 +15,12 @@ public static class ListPlayers
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<ListPlayersQuery, ApiCollection<ListPlayersItem>>
+    public sealed class RequestHandler(IGamePlayerRepository gamePlayerRepository)
+        : IRequestHandler<ListPlayersQuery, ApiCollection<ListPlayersItem>>
     {
-        private readonly IGamePlayerRepository _gamePlayerRepository;
-
-        public RequestHandler(IGamePlayerRepository gamePlayerRepository)
-        {
-            _gamePlayerRepository = gamePlayerRepository;
-        }
-
         public async Task<ApiCollection<ListPlayersItem>> Handle(ListPlayersQuery request, CancellationToken cancellationToken = default)
         {
-            var gamePlayers = await _gamePlayerRepository.GetByGame(request.GameId, cancellationToken);
+            var gamePlayers = await gamePlayerRepository.GetByGame(request.GameId, cancellationToken);
 
             return new ApiCollection<ListPlayersItem>(
                 gamePlayers.Select(x => new ListPlayersItem(x.PlayerId, "TODO")).ToList(), 

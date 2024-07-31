@@ -31,26 +31,16 @@ public static class CreateTicket
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<CreateTicketCommand, CreateTicketResponse>
+    public sealed class RequestHandler(ITicketRepository ticketRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        : IRequestHandler<CreateTicketCommand, CreateTicketResponse>
     {
-        private readonly ITicketRepository _ticketRepository;
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public RequestHandler(ITicketRepository ticketRepository, IMapper mapper, IUnitOfWork unitOfWork)
-        {
-            _ticketRepository = ticketRepository;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-        }
-
         public async Task<CreateTicketResponse> Handle(CreateTicketCommand request, CancellationToken cancellationToken = default)
         {
             var ticket = Ticket.Create(request.GameId, request.Name, request.Description);
-            _ticketRepository.Add(ticket);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            ticketRepository.Add(ticket);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<CreateTicketResponse>(ticket);
+            return mapper.Map<CreateTicketResponse>(ticket);
         }
     }
 }

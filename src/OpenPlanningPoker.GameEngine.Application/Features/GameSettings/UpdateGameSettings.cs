@@ -32,28 +32,21 @@ public static class UpdateGameSettings
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<UpdateGameSettingsCommand, UpdateGameSettingsResponse>
+    public sealed class RequestHandler(
+        IGameSettingsRepository gameSettingsRepository,
+        IMapper mapper,
+        IUnitOfWork unitOfWork)
+        : IRequestHandler<UpdateGameSettingsCommand, UpdateGameSettingsResponse>
     {
-        private readonly IGameSettingsRepository _gameSettingsRepository;
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public RequestHandler(IGameSettingsRepository gameSettingsRepository, IMapper mapper, IUnitOfWork unitOfWork)
-        {
-            _gameSettingsRepository = gameSettingsRepository;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-        }
-
         public async Task<UpdateGameSettingsResponse> Handle(UpdateGameSettingsCommand request, CancellationToken cancellationToken = default)
         {
             // Create a game
-            var gameSettings = await _gameSettingsRepository.GetByIdAsync(request.Id, cancellationToken);
+            var gameSettings = await gameSettingsRepository.GetByIdAsync(request.Id, cancellationToken);
             gameSettings!.Update(request.GameId, request.VotingTime, request.IsBreakAllowed);
-            _gameSettingsRepository.Update(gameSettings);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            gameSettingsRepository.Update(gameSettings);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<UpdateGameSettingsResponse>(gameSettings);
+            return mapper.Map<UpdateGameSettingsResponse>(gameSettings);
         }
     }
 }

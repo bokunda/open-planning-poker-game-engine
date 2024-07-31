@@ -21,21 +21,13 @@ public static class GetTickets
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<GetTicketsQuery, ApiCollection<GetTicketsItem>>
+    public sealed class RequestHandler(ITicketRepository ticketRepository, IMapper mapper)
+        : IRequestHandler<GetTicketsQuery, ApiCollection<GetTicketsItem>>
     {
-        private readonly ITicketRepository _ticketRepository;
-        private readonly IMapper _mapper;
-
-        public RequestHandler(ITicketRepository ticketRepository, IMapper mapper)
-        {
-            _ticketRepository = ticketRepository;
-            _mapper = mapper;
-        }
-
         public async Task<ApiCollection<GetTicketsItem>> Handle(GetTicketsQuery request, CancellationToken cancellationToken = default)
         {
-            var data = await _ticketRepository.GetByGame(request.GameId, cancellationToken);
-            var mappedData = _mapper.Map<ICollection<GetTicketsItem>>(data);
+            var data = await ticketRepository.GetByGame(request.GameId, cancellationToken);
+            var mappedData = mapper.Map<ICollection<GetTicketsItem>>(data);
             return new ApiCollection<GetTicketsItem>(mappedData, mappedData.Count);
         }
     }

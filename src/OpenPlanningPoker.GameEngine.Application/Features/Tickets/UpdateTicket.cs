@@ -31,28 +31,18 @@ public static class UpdateTicket
         }
     }
 
-    public sealed class RequestHandler : IRequestHandler<UpdateTicketCommand, UpdateTicketResponse>
+    public sealed class RequestHandler(ITicketRepository ticketRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        : IRequestHandler<UpdateTicketCommand, UpdateTicketResponse>
     {
-        private readonly ITicketRepository _ticketRepository;
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public RequestHandler(ITicketRepository ticketRepository, IMapper mapper, IUnitOfWork unitOfWork)
-        {
-            _ticketRepository = ticketRepository;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-        }
-
         public async Task<UpdateTicketResponse> Handle(UpdateTicketCommand request, CancellationToken cancellationToken = default)
         {
-            var ticket = await _ticketRepository.GetByIdAsync(request.TicketId, cancellationToken);
+            var ticket = await ticketRepository.GetByIdAsync(request.TicketId, cancellationToken);
             ticket!.Update(request.Name, request.Description);
 
-            _ticketRepository.Update(ticket);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            ticketRepository.Update(ticket);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<UpdateTicketResponse>(ticket);
+            return mapper.Map<UpdateTicketResponse>(ticket);
         }
     }
 }

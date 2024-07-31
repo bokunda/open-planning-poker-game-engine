@@ -1,13 +1,10 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Infrastructure.Repositories;
 
-public class Repository<TEntity, TEntityId> : IRepository<TEntity, TEntityId> where TEntity : Entity<TEntityId>
+public class Repository<TEntity, TEntityId>(OpenPlanningPokerGameEngineDbContext dbContext)
+    : IRepository<TEntity, TEntityId>
+    where TEntity : Entity<TEntityId>
 {
-    protected readonly OpenPlanningPokerGameEngineDbContext DbContext;
-
-    public Repository(OpenPlanningPokerGameEngineDbContext dbContext)
-    {
-        DbContext = dbContext;
-    }
+    protected readonly OpenPlanningPokerGameEngineDbContext DbContext = dbContext;
 
     public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default) =>
         await DbContext
