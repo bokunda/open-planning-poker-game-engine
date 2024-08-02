@@ -1,6 +1,6 @@
-﻿
-namespace OpenPlanningPoker.GameEngine.Api.Controllers.GamePlayer;
+﻿namespace OpenPlanningPoker.GameEngine.Api.Controllers.GamePlayer;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class GamePlayerController(ISender sender, IMapper mapper, ICurrentUserProvider currentUserProvider)

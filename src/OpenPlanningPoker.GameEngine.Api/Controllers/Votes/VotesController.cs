@@ -1,7 +1,6 @@
-﻿using GetVotesItemApi = OpenPlanningPoker.GameEngine.Api.Models.Features.Votes.GetVotesItem;
+﻿namespace OpenPlanningPoker.GameEngine.Api.Controllers.Votes;
 
-namespace OpenPlanningPoker.GameEngine.Api.Controllers.Votes;
-
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class VotesController(ISender sender, IMapper mapper) : ControllerBase
