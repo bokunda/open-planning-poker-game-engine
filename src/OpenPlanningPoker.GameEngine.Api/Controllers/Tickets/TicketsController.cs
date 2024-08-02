@@ -2,6 +2,7 @@
 
 namespace OpenPlanningPoker.GameEngine.Api.Controllers.Tickets;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class TicketsController(ISender sender, IMapper mapper) : ControllerBase

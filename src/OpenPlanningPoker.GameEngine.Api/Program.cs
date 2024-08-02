@@ -3,20 +3,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    // Set the comments path for the Swagger JSON and UI.
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"; // Change to match your XML file name
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    c.IncludeXmlComments(xmlPath);
 
-    // Other SwaggerGen configuration if needed...
-});
+builder.Services.AddSwagger();
 
 builder.Services.AddHealthChecks()
     .AddNpgSql(builder.Configuration["ConnectionStrings:Database"]!)
     .AddCheck<CloudServiceHealthCheck>("CloudServiceProvider");
 
+builder.Services.AddKeyCloak(builder.Configuration);
 builder.Services.AddMemoryCache();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -38,10 +32,11 @@ try
 
     if (app.Environment.IsDevelopment())
     {
+        IdentityModelEventSource.ShowPII = true;
         app.UseSwagger();
         app.UseSwaggerUI();
-
     }
+
     app.ApplyMigrations();
 
     app.UseHttpsRedirection();
