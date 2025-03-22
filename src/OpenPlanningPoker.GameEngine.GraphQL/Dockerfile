@@ -18,7 +18,7 @@ COPY ["src/OpenPlanningPoker.GameEngine.Domain/OpenPlanningPoker.GameEngine.Doma
 COPY ["src/OpenPlanningPoker.GameEngine.Infrastructure/OpenPlanningPoker.GameEngine.Infrastructure.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.Infrastructure/"]
 RUN dotnet restore "./src/GameEngine/OpenPlanningPoker.GameEngine.GraphQL/OpenPlanningPoker.GameEngine.GraphQL.csproj"
 COPY . .
-WORKDIR "/src/src/GameEngine/OpenPlanningPoker.GameEngine.GraphQL"
+WORKDIR "/src/OpenPlanningPoker.GameEngine.GraphQL"
 RUN dotnet build "./OpenPlanningPoker.GameEngine.GraphQL.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
