@@ -7,10 +7,8 @@ public class VoteQueryableExtensionsTests
 
     private readonly Guid _firstTicket = Guid.Parse("2c6ed343-1111-4002-a842-8fc6d2660392");
 
-    private const int FirstValue = 10;
-    private const int SecondValue = 20;
-
-
+    private const string FirstValue = "10";
+    private const string SecondValue = "20";
 
     private readonly ICollection<Vote> _votes;
 
@@ -33,6 +31,6 @@ public class VoteQueryableExtensionsTests
         var result = queryable.QueryByTicket(_firstTicket).ToList();
 
         // Assert
-        result.Count.Should().Be(_votes.Count);
+        result.Count.ShouldBe(_votes.Count);
     }
 }

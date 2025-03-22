@@ -15,9 +15,9 @@ public class TicketsTests : BaseTest
 
         // Assert
         AssertDomainEventWasPublished<CreateTicketDomainEvent>(ticket);
-        ticket.GameId.Should().Be(gameId);
-        ticket.Name.Should().Be(name);
-        ticket.Description.Should().Be(description);
+        ticket.GameId.ShouldBe(gameId);
+        ticket.Name.ShouldBe(name);
+        ticket.Description.ShouldBe(description);
     }
 
     [Fact]
@@ -37,9 +37,9 @@ public class TicketsTests : BaseTest
 
         // Assert
         AssertDomainEventWasPublished<UpdateTicketDomainEvent>(ticket);
-        ticket.GameId.Should().Be(gameId);
-        ticket.Name.Should().Be(nameUpdated);
-        ticket.Description.Should().Be(descriptionUpdated);
+        ticket.GameId.ShouldBe(gameId);
+        ticket.Name.ShouldBe(nameUpdated);
+        ticket.Description.ShouldBe(descriptionUpdated);
     }
 
 }

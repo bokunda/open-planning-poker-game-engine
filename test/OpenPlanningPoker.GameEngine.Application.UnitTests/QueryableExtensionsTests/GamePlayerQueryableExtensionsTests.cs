@@ -29,8 +29,8 @@ public class GamePlayerQueryableExtensionsTests
         var result = queryable.QueryByGame(_firstGame).Single();
 
         // Assert
-        result.GameId.Should().Be(_firstGame);
-        result.PlayerId.Should().Be(_firstPlayer);
+        result.GameId.ShouldBe(_firstGame);
+        result.PlayerId.ShouldBe(_firstPlayer);
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class GamePlayerQueryableExtensionsTests
         var result = queryable.QueryByPlayer(_firstPlayer).ToList();
 
         // Assert
-        result.Count.Should().Be(1);
+        result.Count.ShouldBe(1);
     }
 
 }

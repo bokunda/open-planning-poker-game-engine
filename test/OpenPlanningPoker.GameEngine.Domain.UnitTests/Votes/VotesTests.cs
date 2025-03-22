@@ -8,16 +8,16 @@ public class VotesTests : BaseTest
         // Arrange
         var playerId = Guid.Parse("33a02402-1111-484c-ae12-e908f99d7889");
         var ticketId = Guid.Parse("33a02402-2222-484c-ae12-e908f99d7889");
-        const int value = 10;
+        const string value = "10";
 
         // Act
         var vote = Vote.Create(playerId, ticketId, value);
 
         // Assert
         AssertDomainEventWasPublished<CreateVoteDomainEvent>(vote);
-        vote.PlayerId.Should().Be(playerId);
-        vote.TicketId.Should().Be(ticketId);
-        vote.Value.Should().Be(value);
+        vote.PlayerId.ShouldBe(playerId);
+        vote.TicketId.ShouldBe(ticketId);
+        vote.Value.ShouldBe(value);
     }
 
     [Fact]
@@ -26,8 +26,8 @@ public class VotesTests : BaseTest
         // Arrange
         var playerId = Guid.Parse("33a02402-1111-484c-ae12-e908f99d7889");
         var ticketId = Guid.Parse("33a02402-2222-484c-ae12-e908f99d7889");
-        const int value = 10;
-        const int valueUpdated = 20;
+        const string value = "10";
+        const string valueUpdated = "20";
 
         var vote = Vote.Create(playerId, ticketId, value);
 
@@ -36,9 +36,9 @@ public class VotesTests : BaseTest
 
         // Assert
         AssertDomainEventWasPublished<UpdateVoteDomainEvent>(vote);
-        vote.PlayerId.Should().Be(playerId);
-        vote.TicketId.Should().Be(ticketId);
-        vote.Value.Should().Be(valueUpdated);
+        vote.PlayerId.ShouldBe(playerId);
+        vote.TicketId.ShouldBe(ticketId);
+        vote.Value.ShouldBe(valueUpdated);
     }
 
 }

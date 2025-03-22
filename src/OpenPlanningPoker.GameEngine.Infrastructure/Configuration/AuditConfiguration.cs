@@ -1,4 +1,5 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Infrastructure.Configuration;
+
 internal sealed class AuditConfiguration : IEntityTypeConfiguration<Audit>
 {
     public void Configure(EntityTypeBuilder<Audit> builder)

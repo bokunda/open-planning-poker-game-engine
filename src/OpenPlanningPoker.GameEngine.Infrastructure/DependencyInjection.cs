@@ -6,7 +6,6 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddTransient<ICurrentUserProvider, CurrentUserProvider>();
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
         AddPersistence(services, configuration);
@@ -34,10 +33,5 @@ public static class DependencyInjection
 
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<OpenPlanningPokerGameEngineDbContext>());
-
-        services.AddSingleton<ISqlConnectionFactory>(_ =>
-            new SqlConnectionFactory(connectionString));
-
-        SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
     }
 }

@@ -6,10 +6,10 @@ Migration commands for OpenPlanningPoker.GameEngine solution.
 $env:ASPNETCORE_ENVIRONMENT='DEV'
 
 ## Add new migration
-`Add-Migration -Project OpenPlanningPoker.GameEngine.Infrastructure -Name TODO -Context OpenPlanningPokerGameEngineDbContext -StartUpProject OpenPlanningPoker.GameEngine.Api` 
+`Add-Migration -Project OpenPlanningPoker.GameEngine.Infrastructure -Name TODO -Context OpenPlanningPokerGameEngineDbContext -StartUpProject OpenPlanningPoker.GameEngine.GraphQL` 
 
 ## Update database
-`Update-Database -Project OpenPlanningPoker.GameEngine.Infrastructure -Context OpenPlanningPokerGameEngineDbContext -StartUpProject OpenPlanningPoker.GameEngine.Api` 
+`Update-Database -Project OpenPlanningPoker.GameEngine.Infrastructure -Context OpenPlanningPokerGameEngineDbContext -StartUpProject OpenPlanningPoker.GameEngine.GraphQL` 
 
 ## Debbuger
 if (System.Diagnostics.Debugger.IsAttached == false) System.Diagnostics.Debugger.Launch();

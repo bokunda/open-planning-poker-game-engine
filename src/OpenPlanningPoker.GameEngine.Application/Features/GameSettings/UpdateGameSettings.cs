@@ -1,8 +1,8 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Application.Features.GameSettings;
 
-public sealed record UpdateGameSettingsResponse(Guid Id, Guid GameId, int VotingTime, bool IsBreakAllowed);
+public sealed record UpdateGameSettingsResponse(Guid Id, Guid GameId, string DeckSetup);
 
-public sealed record UpdateGameSettingsCommand(Guid Id, Guid GameId, int VotingTime, bool IsBreakAllowed) : IRequest<UpdateGameSettingsResponse>;
+public sealed record UpdateGameSettingsCommand(Guid Id, Guid GameId, string DeckSetup) : IRequest<Result<UpdateGameSettingsResponse, ApplicationError>>;
 
 public static class UpdateGameSettings
 {
@@ -16,12 +16,12 @@ public static class UpdateGameSettings
             RuleFor(x => x.GameId)
                 .NotEmpty();
 
-            RuleFor(x => x.VotingTime)
-                .GreaterThan(0);
-
-            RuleFor(x => x.IsBreakAllowed)
-                .NotEmpty();
+            RuleFor(x => x.DeckSetup)
+                .NotEmpty()
+                .Must(BeValidCsv).WithMessage("Deck must be in the CSV format.");
         }
+
+        private bool BeValidCsv(string deckSetup) => deckSetup.Split(',').All(item => !string.IsNullOrWhiteSpace(item));
     }
 
     public sealed class MappingProfile : Profile
@@ -36,13 +36,13 @@ public static class UpdateGameSettings
         IGameSettingsRepository gameSettingsRepository,
         IMapper mapper,
         IUnitOfWork unitOfWork)
-        : IRequestHandler<UpdateGameSettingsCommand, UpdateGameSettingsResponse>
+        : IRequestHandler<UpdateGameSettingsCommand, Result<UpdateGameSettingsResponse, ApplicationError>>
     {
-        public async Task<UpdateGameSettingsResponse> Handle(UpdateGameSettingsCommand request, CancellationToken cancellationToken = default)
+        public async Task<Result<UpdateGameSettingsResponse, ApplicationError>> Handle(UpdateGameSettingsCommand request, CancellationToken cancellationToken = default)
         {
             // Create a game
             var gameSettings = await gameSettingsRepository.GetByIdAsync(request.Id, cancellationToken);
-            gameSettings!.Update(request.GameId, request.VotingTime, request.IsBreakAllowed);
+            gameSettings!.Update(request.GameId, request.DeckSetup);
             gameSettingsRepository.Update(gameSettings);
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
