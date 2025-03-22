@@ -12,13 +12,13 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Directory.Packages.props", "."]
-COPY ["src/OpenPlanningPoker.GameEngine.GraphQL/OpenPlanningPoker.GameEngine.GraphQL.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.GraphQL/"]
-COPY ["src/OpenPlanningPoker.GameEngine.Application/OpenPlanningPoker.GameEngine.Application.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.Application/"]
-COPY ["src/OpenPlanningPoker.GameEngine.Domain/OpenPlanningPoker.GameEngine.Domain.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.Domain/"]
-COPY ["src/OpenPlanningPoker.GameEngine.Infrastructure/OpenPlanningPoker.GameEngine.Infrastructure.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.Infrastructure/"]
-RUN dotnet restore "./src/GameEngine/OpenPlanningPoker.GameEngine.GraphQL/OpenPlanningPoker.GameEngine.GraphQL.csproj"
+COPY ["src/OpenPlanningPoker.GameEngine.GraphQL/OpenPlanningPoker.GameEngine.GraphQL.csproj", "src/OpenPlanningPoker.GameEngine.GraphQL/"]
+COPY ["src/OpenPlanningPoker.GameEngine.Application/OpenPlanningPoker.GameEngine.Application.csproj", "src/OpenPlanningPoker.GameEngine.Application/"]
+COPY ["src/OpenPlanningPoker.GameEngine.Domain/OpenPlanningPoker.GameEngine.Domain.csproj", "src/OpenPlanningPoker.GameEngine.Domain/"]
+COPY ["src/OpenPlanningPoker.GameEngine.Infrastructure/OpenPlanningPoker.GameEngine.Infrastructure.csproj", "src/OpenPlanningPoker.GameEngine.Infrastructure/"]
+RUN dotnet restore "./src/OpenPlanningPoker.GameEngine.GraphQL/OpenPlanningPoker.GameEngine.GraphQL.csproj"
 COPY . .
-WORKDIR "/src/OpenPlanningPoker.GameEngine.GraphQL"
+WORKDIR "/src/src/OpenPlanningPoker.GameEngine.GraphQL"
 RUN dotnet build "./OpenPlanningPoker.GameEngine.GraphQL.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
