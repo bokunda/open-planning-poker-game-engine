@@ -12,10 +12,10 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Directory.Packages.props", "."]
-COPY ["src/GameEngine/OpenPlanningPoker.GameEngine.GraphQL/OpenPlanningPoker.GameEngine.GraphQL.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.GraphQL/"]
-COPY ["src/GameEngine/OpenPlanningPoker.GameEngine.Application/OpenPlanningPoker.GameEngine.Application.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.Application/"]
-COPY ["src/GameEngine/OpenPlanningPoker.GameEngine.Domain/OpenPlanningPoker.GameEngine.Domain.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.Domain/"]
-COPY ["src/GameEngine/OpenPlanningPoker.GameEngine.Infrastructure/OpenPlanningPoker.GameEngine.Infrastructure.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.Infrastructure/"]
+COPY ["src/OpenPlanningPoker.GameEngine.GraphQL/OpenPlanningPoker.GameEngine.GraphQL.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.GraphQL/"]
+COPY ["src/OpenPlanningPoker.GameEngine.Application/OpenPlanningPoker.GameEngine.Application.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.Application/"]
+COPY ["src/OpenPlanningPoker.GameEngine.Domain/OpenPlanningPoker.GameEngine.Domain.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.Domain/"]
+COPY ["src/OpenPlanningPoker.GameEngine.Infrastructure/OpenPlanningPoker.GameEngine.Infrastructure.csproj", "src/GameEngine/OpenPlanningPoker.GameEngine.Infrastructure/"]
 RUN dotnet restore "./src/GameEngine/OpenPlanningPoker.GameEngine.GraphQL/OpenPlanningPoker.GameEngine.GraphQL.csproj"
 COPY . .
 WORKDIR "/src/src/GameEngine/OpenPlanningPoker.GameEngine.GraphQL"
