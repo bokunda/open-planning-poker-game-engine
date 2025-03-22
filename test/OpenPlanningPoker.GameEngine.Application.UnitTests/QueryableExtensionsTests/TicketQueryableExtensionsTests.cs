@@ -33,8 +33,8 @@ public class TicketQueryableExtensionsTests
         var result = queryable.QueryByGame(_firstGame).Single();
 
         // Assert
-        result.GameId.Should().Be(_firstGame);
-        result.Name.Should().Be(FirstGameName);
-        result.Description.Should().Be(FirstGameDescription);
+        result.GameId.ShouldBe(_firstGame);
+        result.Name.ShouldBe(FirstGameName);
+        result.Description.ShouldBe(FirstGameDescription);
     }
 }

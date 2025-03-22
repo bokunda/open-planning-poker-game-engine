@@ -17,7 +17,7 @@ namespace OpenPlanningPoker.GameEngine.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "9.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -82,13 +82,10 @@ namespace OpenPlanningPoker.GameEngine.Infrastructure.Migrations
 
             modelBuilder.Entity("OpenPlanningPoker.GameEngine.Domain.GamePlayer.GamePlayer", b =>
                 {
-                    b.Property<Guid>("GameId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("game_id");
-
-                    b.Property<Guid>("PlayerId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("player_id");
+                        .HasColumnName("id");
 
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid")
@@ -98,16 +95,26 @@ namespace OpenPlanningPoker.GameEngine.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_on");
 
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("GameId")
                         .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnName("game_id");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean")
                         .HasColumnName("is_deleted");
 
-                    b.HasKey("GameId", "PlayerId")
+                    b.Property<Guid>("PlayerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("player_id");
+
+                    b.HasKey("Id")
                         .HasName("pk_gameplayer");
+
+                    b.HasIndex("GameId")
+                        .HasDatabaseName("ix_gameplayer_game_id");
+
+                    b.HasIndex("PlayerId")
+                        .HasDatabaseName("ix_gameplayer_player_id");
 
                     b.ToTable("gameplayer", (string)null);
                 });
@@ -127,21 +134,18 @@ namespace OpenPlanningPoker.GameEngine.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_on");
 
+                    b.Property<string>("DeckSetup")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("deck_setup");
+
                     b.Property<Guid>("GameId")
                         .HasColumnType("uuid")
                         .HasColumnName("game_id");
 
-                    b.Property<bool>("IsBreakAllowed")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_break_allowed");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean")
                         .HasColumnName("is_deleted");
-
-                    b.Property<int>("VotingTime")
-                        .HasColumnType("integer")
-                        .HasColumnName("voting_time");
 
                     b.HasKey("Id")
                         .HasName("pk_gamesettings");
@@ -260,8 +264,9 @@ namespace OpenPlanningPoker.GameEngine.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_deleted");
 
-                    b.Property<int>("Value")
-                        .HasColumnType("integer")
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("value");
 
                     b.HasKey("PlayerId", "TicketId")

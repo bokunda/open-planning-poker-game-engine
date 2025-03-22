@@ -1,8 +1,8 @@
 ﻿namespace OpenPlanningPoker.GameEngine.Application.Features.GameSettings;
 
-public sealed record CreateGameSettingsResponse(Guid Id, Guid GameId, int VotingTime, bool IsBreakAllowed);
+public sealed record CreateGameSettingsResponse(Guid Id, Guid GameId, string DeckSetup);
 
-public sealed record CreateGameSettingsCommand(Guid GameId, int VotingTime, bool IsBreakAllowed) : IRequest<CreateGameSettingsResponse>;
+public sealed record CreateGameSettingsCommand(Guid GameId, string DeckSetup) : IRequest<Result<CreateGameSettingsResponse, ApplicationError>>;
 
 public static class CreateGameSettings
 {
@@ -13,12 +13,12 @@ public static class CreateGameSettings
             RuleFor(x => x.GameId)
                 .NotEmpty();
 
-            RuleFor(x => x.VotingTime)
-                .GreaterThan(0);
-
-            RuleFor(x => x.IsBreakAllowed)
-                .NotEmpty();
+            RuleFor(x => x.DeckSetup)
+                .NotEmpty()
+                .Must(BeValidCsv).WithMessage("Deck must be in the CSV format.");
         }
+
+        private bool BeValidCsv(string deckSetup) => deckSetup.Split(',').All(item => !string.IsNullOrWhiteSpace(item));
     }
 
     public sealed class MappingProfile : Profile
@@ -34,11 +34,11 @@ public static class CreateGameSettings
         IGameSettingsRepository gameSettingsRepository,
         IMapper mapper,
         IUnitOfWork unitOfWork)
-        : IRequestHandler<CreateGameSettingsCommand, CreateGameSettingsResponse>
+        : IRequestHandler<CreateGameSettingsCommand, Result<CreateGameSettingsResponse, ApplicationError>>
     {
-        public async Task<CreateGameSettingsResponse> Handle(CreateGameSettingsCommand request, CancellationToken cancellationToken = default)
+        public async Task<Result<CreateGameSettingsResponse, ApplicationError>> Handle(CreateGameSettingsCommand request, CancellationToken cancellationToken = default)
         {
-            var game = Domain.GameSettings.GameSettings.Create(request.GameId, request.VotingTime, request.IsBreakAllowed);
+            var game = Domain.GameSettings.GameSettings.Create(request.GameId, request.DeckSetup);
             gameSettingsRepository.Add(game);
             await unitOfWork.SaveChangesAsync(cancellationToken);
 

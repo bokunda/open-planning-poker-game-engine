@@ -11,6 +11,6 @@ public class DomainTests : BaseTest
             .Should().HaveNameEndingWith("DomainEvent")
             .GetResult();
 
-        result.IsSuccessful.Should().BeTrue();
+        result.IsSuccessful.ShouldBeTrue();
     }
 }

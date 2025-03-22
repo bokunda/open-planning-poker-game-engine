@@ -14,8 +14,8 @@ public class GamesTests : BaseTest
 
         // Assert
         AssertDomainEventWasPublished<CreateGameDomainEvent>(game);
-        game.Name.Should().Be(name);
-        game.Description.Should().Be(description);
+        game.Name.ShouldBe(name);
+        game.Description.ShouldBe(description);
     }
 
 }

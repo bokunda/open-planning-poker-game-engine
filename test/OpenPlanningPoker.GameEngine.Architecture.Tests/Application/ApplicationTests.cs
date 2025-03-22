@@ -11,7 +11,7 @@ public class ApplicationTests : BaseTest
             .Should().HaveNameEndingWith("Handler")
             .GetResult();
 
-        result.IsSuccessful.Should().BeTrue();
+        result.IsSuccessful.ShouldBeTrue();
     }
 
     [Fact]
@@ -24,6 +24,6 @@ public class ApplicationTests : BaseTest
             .HaveNameEndingWith("Validator")
             .GetResult();
 
-        result.IsSuccessful.Should().BeTrue();
+        result.IsSuccessful.ShouldBeTrue();
     }
 }

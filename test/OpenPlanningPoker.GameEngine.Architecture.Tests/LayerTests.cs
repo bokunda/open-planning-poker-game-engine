@@ -10,7 +10,7 @@ public class LayerTests : BaseTest
             .NotHaveDependencyOn(ApplicationAssembly.GetName().Name)
             .GetResult();
 
-        result.IsSuccessful.Should().BeTrue();
+        result.IsSuccessful.ShouldBeTrue();
     }
 
     [Fact]
@@ -21,7 +21,7 @@ public class LayerTests : BaseTest
             .NotHaveDependencyOn(ApplicationAssembly.GetName().Name)
             .GetResult();
 
-        result.IsSuccessful.Should().BeTrue();
+        result.IsSuccessful.ShouldBeTrue();
     }
 
     [Fact]
@@ -32,6 +32,6 @@ public class LayerTests : BaseTest
             .NotHaveDependencyOn(InfrastructureAssembly.GetName().Name)
             .GetResult();
 
-        result.IsSuccessful.Should().BeTrue();
+        result.IsSuccessful.ShouldBeTrue();
     }
 }

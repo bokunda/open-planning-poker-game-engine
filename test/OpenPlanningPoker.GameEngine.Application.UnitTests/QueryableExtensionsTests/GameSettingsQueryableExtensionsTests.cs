@@ -11,11 +11,12 @@ public class GameSettingsQueryableExtensionsTests
 
     public GameSettingsQueryableExtensionsTests()
     {
+        const string DeckSetup = "0,1,2,3,4,5,6,7";
         _gameSettings = new List<GameSettings>
         {
-            GameSettings.Create(_firstGame, 10, true),
-            GameSettings.Create(_secondGame, 20, false),
-            GameSettings.Create(_thirdGame, 30, true),
+            GameSettings.Create(_firstGame, DeckSetup),
+            GameSettings.Create(_secondGame, DeckSetup),
+            GameSettings.Create(_thirdGame, DeckSetup),
         };
     }
 
@@ -29,6 +30,6 @@ public class GameSettingsQueryableExtensionsTests
         var result = queryable.QueryByGame(_firstGame).Single();
 
         // Assert
-        result.GameId.Should().Be(_firstGame);
+        result.GameId.ShouldBe(_firstGame);
     }
 }
