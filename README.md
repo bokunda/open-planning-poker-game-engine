@@ -5,39 +5,24 @@ For mor details visit the main [Open Planning Poker page](https://github.com/bok
 
 ## Description
 
-Work in progress.
+The Game Engine implements game mechanics and exposes a GraphQL facade.
 
 ## Tech stack
-- [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) - Web Api
+- [.NET 9](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) - Web Api
 - [PostgreSQL](https://www.postgresql.org) - Database
 - [Docker](https://www.docker.com/) - Containerisation
-- [Seq](https://datalust.co/seq) - Platform used for storing logs
 
 ### Most important external dependencies
+- [HotChocolate](https://chillicream.com/docs/hotchocolate/v15) - GraphQL implementation for .NET
 - [Entity Framework](https://learn.microsoft.com/en-us/ef/) - ORM
-- [Dapper](https://github.com/DapperLib/Dapper) - Micro ORM
 - [MediatR](https://github.com/jbogard/MediatR) - Mediator implementation in .NET
 - [Serilog](https://serilog.net/) - .NET logging with fully-structured events
 - [AutoMapper](https://docs.automapper.org/en/stable/Getting-started.html) - object-object mapper
 - [FluentValidation](https://docs.fluentvalidation.net/en/latest/) - Library for building strongly-typed validation rules
-- [RichardSzalay.MockHttp](https://github.com/richardszalay/mockhttp) - Testing layer for Microsoft's HttpClient library.
 - [FluentAssertions](https://fluentassertions.com/) - Set of extension methods for assertions in testing to make the assertions more readable and easier to understand.
 - [FakeItEasy](https://fakeiteasy.github.io/) - dynamic fake framework for creating all types of fake objects, mocks, stubs etc.
 - [Testcontainers.PostgreSql](https://testcontainers.com/guides/getting-started-with-testcontainers-for-dotnet/) - Testing library that provides easy and lightweight APIs for bootstrapping integration tests with real services wrapped in Docker containers.
 - [NetArchTest.Rules](https://github.com/BenMorris/NetArchTest) - A fluent API for .Net Standard that can enforce architectural rules in unit tests.
-
-## Application Access Data
-
-Work in progress.
-
-### [Seq](http://localhost:5341/) - Logs monitoring
-### [Swagger API](https://localhost:6992/swagger/index.html) - Swagger representation
-### PostgreSQL  
-- host: **localhost** 
-- port: **5432** 
-- dbname: **open-planning-poker-db** .
-- username: **postgres** 
-- password: **posgres**
 
 ## DB Diagram
 
@@ -57,33 +42,5 @@ To run this project, the only thing that has to be installed on the machine is [
 ## How To
 
 ### Start
-There are two ways to start the solution, directly from *Visual Studio* or using *Docker Compose*.
+Check the [main](https://github.com/bokunda/open-planning-poker) project for details. 
 
-#### Visual Studio 2022 (or newer)
-- Open this solution using Visual Studio 2022 or newer
-- Right-click on the *docker-compose* item in Solution Explorer (follow the blue whale icon 🐋)
-- Chose 'Set as Startup project'
-- Run the solution (click on the green play button on the top of the Visual Studio window)
-
-#### Docker Compose
-- Navigate to the root of the *open-planning-poker-game-engine* folder
-- Open console
-- run `docker-compose -f docker-compose.yml -f docker-compose.override.yml up` command
-
-### Test
-
-Work in progress.
-
-#### Postman
-
-[Download Link](https://github.com/bokunda/open-planning-poker-game-engine/blob/main/Resources/Open%20Planning%20Poker%20-%20Game%20Engine.postman_collection.json) - Postman Collection
-Just set {{gameEngineUrl}} environment variable in Postman to `https://localhost:6992` and you can start testing the app.
-
-If a download fails, navigate to **Resources** folder and download **Open Planning Poker - Game Engine.postman_collection.json** file.
-
-**NOTE:** Initial setup of the collection is with valid data!
-
-
-## Future Improvements
-
-Work in progress.
